@@ -1,4 +1,4 @@
-# ほんだな
+ほんだな
 =============
 
 ## コンセプト
@@ -32,6 +32,6 @@
        - 借りてる人へのメッセージリンク
 
 ## マークダウンの書き方
-[README.mdファイル。マークダウン記法まとめ](http://histudy.doorkeeper.jp/){:target="_blank"}
-[わかりやすいREADME.mdを書く](https://deeeet.com/writing/2014/07/31/readme/){:target="_blank"}
-[Markdownで行こう！](https://gist.github.com/wate/7072365){:target="_blank"}
+[README.mdファイル。マークダウン記法まとめ](http://histudy.doorkeeper.jp/){:target="_blank"}  
+[わかりやすいREADME.mdを書く](https://deeeet.com/writing/2014/07/31/readme/){:target="_blank"}  
+[Markdownで行こう！](https://gist.github.com/wate/7072365){:target="_blank"}  
