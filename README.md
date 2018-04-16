@@ -7,7 +7,7 @@
 ## 概要
 本の貸出、本ベースの情報共有サービス
 
-## 業務要件
+## システム要件
 ### 仕様
 - 本を登録
 - 登録されてる本の情報表示
@@ -32,6 +32,7 @@
        - 借りてる人へのメッセージリンク
 
 ## マークダウンの書き方
-[README.mdファイル。マークダウン記法まとめ](http://histudy.doorkeeper.jp/){:target="_blank"}  
-[わかりやすいREADME.mdを書く](https://deeeet.com/writing/2014/07/31/readme/){:target="_blank"}  
-[Markdownで行こう！](https://gist.github.com/wate/7072365){:target="_blank"}  
+[README.mdファイル。マークダウン記法まとめ](http://histudy.doorkeeper.jp/)  
+[わかりやすいREADME.mdを書く](https://deeeet.com/writing/2014/07/31/readme/)  
+[Markdownで行こう！](https://gist.github.com/wate/7072365)  
+[[無料]Githubで外部リンクを別タブで開くChrome拡張](https://qiita.com/KumanoT/items/c91390898573978fc979)  
