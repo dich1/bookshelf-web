@@ -31,15 +31,9 @@
        - 延滞告知
        - 借りてる人へのメッセージリンク
 
-## マークダウンの書き方
-[README.mdファイル。マークダウン記法まとめ](http://codechord.com/2012/01/readme-markdown/)  
-[わかりやすいREADME.mdを書く](https://deeeet.com/writing/2014/07/31/readme/)  
-[Markdownで行こう！](https://gist.github.com/wate/7072365)  
-[[無料]Githubで外部リンクを別タブで開くChrome拡張](https://qiita.com/KumanoT/items/c91390898573978fc979)  
-
 ## 開発フロー
 ### github-flow  
-現行版置き替えまでは込み入らないため、msterから切ったブランチで作業する
+現行版置き替えまで  
 [GitFlow vs GithubFlow](https://qiita.com/tlta-bkhn/items/fc485a66dbe48ec3b919)  
 
 ## 環境構築
@@ -48,6 +42,20 @@ https://docs.docker.com/docker-for-mac/
 2.bookshelf-webフォーク  
 3.フォークしたbookshelf-webクローン  
 4.Docker起動  
-    docker-compose run web rails new . --force --database=postgresql  
-    docker-compose up -d  
-    docker-compose run web rake db:create  
+```
+docker-compose run web rails new . --force --database=postgresql  
+docker-compose up -d  
+docker-compose run web rake db:create  
+```
+
+## チケット  
+### Issues
+
+## 参考URL
+### マークダウンの書き方
+[README.mdファイル。マークダウン記法まとめ](http://codechord.com/2012/01/readme-markdown/)  
+[わかりやすいREADME.mdを書く](https://deeeet.com/writing/2014/07/31/readme/)  
+[Markdownで行こう！](https://gist.github.com/wate/7072365)  
+[[無料]Githubで外部リンクを別タブで開くChrome拡張](https://qiita.com/KumanoT/items/c91390898573978fc979)  
+### TODO管理
+[チーム開発を変える「GitHub」とは？〜Issuesの使い方〜【連載第3回】](https://seleck.cc/647)  
