@@ -31,10 +31,40 @@
        - 延滞告知
        - 借りてる人へのメッセージリンク
 
+## アーキテクチャのスタイルの方針
+- REST API
+   - アプリ化し易いため
+- ビュー使う際は極力htmlベース(html.erb)
+   - UI改善を依頼し易いため(フロントだけ切り離せる)
+
 ## 開発フロー
 ### github-flow  
-現行版置き替えまで  
+- 現状まっさらなため、開発ブランチ1つで行う(現行版の置き替えまで)
+- materからdev作成->開発->rebase->masterにPR->merge 繰り返し
+- 代わりにコミットに以下の表記で3種類のprefixを使う
+   - [feat]機能の追加
+   - [fix]バグの修正
+   - [refactor]書き替え
+
 [GitFlow vs GithubFlow](https://qiita.com/tlta-bkhn/items/fc485a66dbe48ec3b919)  
+[【今日からできる】コミットメッセージに 「プレフィックス」 をつけるだけで、開発効率が上がった話](https://qiita.com/numanomanu/items/45dd285b286a1f7280ed)  
+
+## ドキュメント作成
+### Gemを最大限活用する
+- ER図生成
+   - rails-erd
+
+- API仕様書生成
+   - swagger-docs
+
+- クラス図生成
+   - yard graph
+
+- コメント
+   - yard
+
+## テスト
+- RSpec
 
 ## 環境構築
 1.Dockerインストール  
@@ -49,7 +79,7 @@ docker-compose run web rake db:create
 ```
 
 ## チケット  
-### Issues
+### GitHubのIssuesを使う
 
 ## 参考URL
 ### マークダウンの書き方
