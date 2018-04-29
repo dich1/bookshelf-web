@@ -40,7 +40,7 @@
 ### github-flow  
 - 現状まっさらなため、開発ブランチ1つで行う(現行版の置き替えまで)
 - materからdev作成->開発->rebase->masterにPR->merge 繰り返し
-- 代わりにコミットに以下の表記で3種類のprefixを使う
+- 代わりにコミットに下記のprefixを使う
    - [feat]機能の追加
    - [fix]バグの修正
    - [refactor]書き替え
@@ -74,6 +74,7 @@
    - Test::Unitより使い易いらしい
 
 ## 環境構築
+### Docker使う場合
 1.Dockerインストール  
 https://docs.docker.com/docker-for-mac/  
 2.bookshelf-webフォーク  
