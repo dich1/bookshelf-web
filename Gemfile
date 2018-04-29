@@ -43,6 +43,9 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_bot_rails'
+  gem 'rails-erd'
+  gem 'schemadoc'
+  gem 'yard'
 end
 
 group :test do
