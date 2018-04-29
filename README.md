@@ -31,11 +31,10 @@
        - 延滞告知
        - 借りてる人へのメッセージリンク
 
-## アーキテクチャのスタイル
+## アーキテクチャのスタイルの方針
 - REST API
-   - 疎結合なため
-- ビュー使う際は極力htmlベース(html.erb)
-   - UIを外注し易いため
+- ビュー使う際は極力htmlベース(テンプレートを使わない)
+   - フロントとして切り離し易いため
 
 ## 開発フロー
 ### github-flow  
@@ -45,6 +44,10 @@
    - [feat]機能の追加
    - [fix]バグの修正
    - [refactor]書き替え
+   - [docs]ドキュメントのみ変更
+   - [style]コードの意味に影響を与えない変更（空白、フォーマット、セミコロンの欠落など）
+   - [test]テストコード
+   - [chore]ビルドプロセスやドキュメント作成などの補助ツールやライブラリの変更
 
 [GitFlow vs GithubFlow](https://qiita.com/tlta-bkhn/items/fc485a66dbe48ec3b919)  
 [【今日からできる】コミットメッセージに 「プレフィックス」 をつけるだけで、開発効率が上がった話](https://qiita.com/numanomanu/items/45dd285b286a1f7280ed)  
@@ -54,8 +57,11 @@
 - ER図生成
    - rails-erd
 
+- DB定義書
+   - schemadoc(できたら)
+
 - API仕様書生成
-   - swagger-docs
+   - swagger-docs(あとで)
 
 - クラス図生成
    - yard graph
