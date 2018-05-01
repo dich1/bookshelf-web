@@ -5,14 +5,8 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-task :create_erd do
-  sh 'bin/rake erd attributes=foreign_keys,primary_keys,content,timestamp sort=false filename=bookshelf-erd filetype=pdf'
-end
-
-task :create_classd do
-  sh 'yard doc'
-  sh 'yard graph --full -f bookshelf-classd.dot'
-  sh 'dot -Tpng bookshelf-classd.dot -o bookshelf-classd.png'
+Rake::Task['db:migrate'].enhance do
+  Rake::Task[:after_migrate].invoke
 end
 
 task :after_migrate do
@@ -20,6 +14,12 @@ task :after_migrate do
   Rake::Task[:create_classd].invoke
 end
 
-Rake::Task['db:migrate'].enhance do
-  Rake::Task[:after_migrate].invoke
+task :create_erd do
+  sh 'bin/rake erd attributes=foreign_keys,primary_keys,content,timestamp sort=false filename=bookshelf-erd filetype=png'
+end
+
+task :create_classd do
+  sh 'yard doc'
+  sh 'yard graph --full -f bookshelf-classd.dot'
+  sh 'dot -Tpng bookshelf-classd.dot -o bookshelf-classd.png'
 end
