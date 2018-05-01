@@ -33,7 +33,12 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Add for Scraiping
+# Use all
+gem 'dotenv-rails'
+gem 'carrierwave'
+gem 'fog-aws'
+
+# for Scraiping
 gem "poltergeist"
 gem "devise"
 gem "ransack"
