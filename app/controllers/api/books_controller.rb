@@ -4,7 +4,7 @@ class Api::BooksController < ApplicationController
   # GET /api/books
   # GET /api/books.json
   def index
-    @api_books = Api::Book.all
+    @api_books = Book.all
   end
 
   # GET /api/books/1
@@ -14,7 +14,7 @@ class Api::BooksController < ApplicationController
 
   # GET /api/books/new
   def new
-    @api_book = Api::Book.new
+    @api_book = Book.new
   end
 
   # GET /api/books/1/edit
@@ -24,7 +24,7 @@ class Api::BooksController < ApplicationController
   # POST /api/books
   # POST /api/books.json
   def create
-    @api_book = Api::Book.new(api_book_params)
+    @api_book = Book.new(api_book_params)
 
     respond_to do |format|
       if @api_book.save
@@ -64,7 +64,7 @@ class Api::BooksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_api_book
-      @api_book = Api::Book.find(params[:id])
+      @api_book = Book.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

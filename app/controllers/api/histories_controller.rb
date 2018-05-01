@@ -4,7 +4,7 @@ class Api::HistoriesController < ApplicationController
   # GET /api/histories
   # GET /api/histories.json
   def index
-    @api_histories = Api::History.all
+    @api_histories = History.all
   end
 
   # GET /api/histories/1
@@ -14,7 +14,7 @@ class Api::HistoriesController < ApplicationController
 
   # GET /api/histories/new
   def new
-    @api_history = Api::History.new
+    @api_history = History.new
   end
 
   # GET /api/histories/1/edit
@@ -24,7 +24,7 @@ class Api::HistoriesController < ApplicationController
   # POST /api/histories
   # POST /api/histories.json
   def create
-    @api_history = Api::History.new(api_history_params)
+    @api_history = History.new(api_history_params)
 
     respond_to do |format|
       if @api_history.save
@@ -64,7 +64,7 @@ class Api::HistoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_api_history
-      @api_history = Api::History.find(params[:id])
+      @api_history = History.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

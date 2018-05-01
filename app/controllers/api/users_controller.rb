@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
   # GET /api/users
   # GET /api/users.json
   def index
-    @api_users = Api::User.all
+    @api_users = User.all
   end
 
   # GET /api/users/1
@@ -14,7 +14,7 @@ class Api::UsersController < ApplicationController
 
   # GET /api/users/new
   def new
-    @api_user = Api::User.new
+    @api_user = User.new
   end
 
   # GET /api/users/1/edit
@@ -24,7 +24,7 @@ class Api::UsersController < ApplicationController
   # POST /api/users
   # POST /api/users.json
   def create
-    @api_user = Api::User.new(api_user_params)
+    @api_user = User.new(api_user_params)
 
     respond_to do |format|
       if @api_user.save
@@ -64,7 +64,7 @@ class Api::UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_api_user
-      @api_user = Api::User.find(params[:id])
+      @api_user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

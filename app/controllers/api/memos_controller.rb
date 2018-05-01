@@ -4,7 +4,7 @@ class Api::MemosController < ApplicationController
   # GET /api/memos
   # GET /api/memos.json
   def index
-    @api_memos = Api::Memo.all
+    @api_memos = Memo.all
   end
 
   # GET /api/memos/1
@@ -14,7 +14,7 @@ class Api::MemosController < ApplicationController
 
   # GET /api/memos/new
   def new
-    @api_memo = Api::Memo.new
+    @api_memo = Memo.new
   end
 
   # GET /api/memos/1/edit
@@ -24,7 +24,7 @@ class Api::MemosController < ApplicationController
   # POST /api/memos
   # POST /api/memos.json
   def create
-    @api_memo = Api::Memo.new(api_memo_params)
+    @api_memo = Memo.new(api_memo_params)
 
     respond_to do |format|
       if @api_memo.save
@@ -64,7 +64,7 @@ class Api::MemosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_api_memo
-      @api_memo = Api::Memo.find(params[:id])
+      @api_memo = Memo.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
