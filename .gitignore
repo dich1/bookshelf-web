@@ -40,3 +40,11 @@
 
 # Ignore redis binary dump (dump.rdb) files
 *.rdb
+
+# Ignore erd and classd
+/.yardoc
+/doc/*
+bookshelf-classd.dot
+
+# Ignore schema
+/db/schema.rb
