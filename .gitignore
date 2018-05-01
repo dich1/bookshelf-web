@@ -45,6 +45,15 @@
 /.yardoc
 /doc/*
 bookshelf-classd.dot
+bookshelf-classd.png
+bookshelf-erd.png
 
 # Ignore schema
 /db/schema.rb
+
+# Ignore ruby version
+.ruby-version
+
+# Ignore Gemfile
+Gemfile.lock
+
