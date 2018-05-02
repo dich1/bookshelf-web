@@ -1,5 +1,5 @@
 class Api::BooksController < ApplicationController
-  before_action :set_api_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_api_book, only: [:update, :destroy]
 
   # GET /api/books.json
   def index

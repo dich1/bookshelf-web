@@ -1,5 +1,5 @@
 class Api::MemosController < ApplicationController
-  before_action :set_api_memo, only: [:show, :edit, :update, :destroy]
+  before_action :set_api_memo, only: [:update, :destroy]
 
   # GET /api/memos.json
   def index

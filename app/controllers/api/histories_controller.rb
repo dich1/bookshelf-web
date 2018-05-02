@@ -1,5 +1,5 @@
 class Api::HistoriesController < ApplicationController
-  before_action :set_api_history, only: [:show, :edit, :update, :destroy]
+  before_action :set_api_history, only: [:update, :destroy]
 
   # GET /api/histories.json
   def index
