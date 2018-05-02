@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>Bookshelf | ほんだな</title>
+    <link rel="icon" href="./images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./css/bookshelf.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css">
+    <link href="./css/jquery.booklet.latest.css" type="text/css" rel="stylesheet" media="screen, projection, tv" />
+    <link rel="stylesheet" type="text/css" href="./css/simplePagination.css" />
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div id="book_detail"></div>
+    <header>
+      <div id="header">
+        <div id="logo">
+          <a href="./index.html"><img src="./images/logo.png" alt="Bookshelf"></a>
+        </div>
+        <nav>
+          <a href="./form.html"><img src="./images/icon_plus.png" alt="">書籍登録</a>
+        </nav>
+      </div>
+    </header>
+    <div id="alert" class="" role="alert"></div>
+    <div id="cover">
+      <h1 id="cover_title">ほんだな</h1>
+      <form action="">
+        <div class="book_status petition active">
+          <input type="button" name="only_petition" value="申請中" onclick="getBooks(0, null);">
+          <div id= "books_petition" class="book_count"></div>
+        </div>
+        <div class="book_status reading active">
+          <input type="button" name="only_reading" value="貸出中" onclick="getBooks(1, null);">
+          <div id= "books_reading" class="book_count"></div>
+        </div>
+        <div class="book_status safekeeping active">
+          <input type="button" name="only_safekeeping" value="保管中" onclick="getBooks(2, null);">
+          <div id= "books_safekeeping" class="book_count"></div>
+        </div>
+      </form>
+    </div>
+    <div class="wrapper">
+      <div id="main">
+        <div id="book_list" class="clearfix">
+          <!-- 登録された書籍タイトルの数だけ出力  -->
+        </div>
+      </div>
+    </div>
+    <div id="paging"></div>
+    <footer>
+      <small>© 2018 Bookshelf.</small>
+    </footer>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css">
+    <link href="./css/jquery.booklet.latest.css" type="text/css" rel="stylesheet" media="screen, projection, tv" />
+    <link rel="stylesheet" type="text/css" href="./css/simplePagination.css" />
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js"></script>
+    <script src="./js/booklet/jquery.easing.1.3.js"></script>
+    <script src="./js/booklet/jquery.booklet.latest.min.js"></script>
+    <script src="./js/pagination/jquery.simplePagination.js"></script>
+    <script type="text/javascript" src="./js/api.js"></script>
+    <script type="text/javascript" src="./js/error.js"></script>
+    <script type="text/javascript" src="./js/datepicker.js"></script>
+    <script type="text/javascript" src="./js/index.js" defer></script>
+    <script type="text/javascript" src="./js/pagination.js" defer></script>
+    <script type="text/javascript" src="./js/detail.js" defer></script>
+  </body>
+</html>

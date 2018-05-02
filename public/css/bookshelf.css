@@ -1,0 +1,683 @@
+/* 文字化け対策 */
+@charset "UTF-8";
+
+/* 全要素に指定 */
+* {
+  /* パディングとボーダーを幅と高さに含める */
+  box-sizing: border-box;
+}
+
+/* 最後の子要素のfloatを解除 */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+/* デフォルトの余白を初期化、背景色設定 */
+body {
+  margin: 0;
+  padding: 0;
+  /* 画像ファイルの指定 */
+  background-image: url("../images/back.jpg");
+   
+  /* 画像を常に天地左右の中央に配置 */
+  background-position: center center;
+   
+  /* 画像をタイル状に繰り返し表示しない */
+  background-repeat: repeat;
+   
+  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
+  background-attachment: fixed;
+   
+  /* 背景画像が読み込まれる前に表示される背景のカラー */
+  background-color: #f5f5f5;
+}
+
+strong {
+  color: white;
+}
+
+/* 左右中央に指定 */
+#header {
+  max-width: 1200px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+#logo {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+/* 書籍登録ボタン */
+header nav {
+  float: right;
+  display: inline-block;
+  margin-top: 15px;
+}
+header nav a {
+  /* デフォルトの下線を消す */
+  text-decoration: none;
+  color: #8d3d15;
+  font-size: 18px;
+}
+
+/* アイキャッチ */
+#cover {
+  color: white;
+  height: 300px;
+  background-image: url("../images/cover.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 改行しない */
+  flex-flow: column nowrap;
+}
+#cover_title {
+  font-size: 36px;
+  letter-spacing: 10px;
+}
+
+/* ステータスボタンエリア */
+.book_status {
+  display: inline-block;
+  text-align: center;
+}
+/* カーソルをリンクポインタにする */
+.book_status input {
+  cursor: pointer;
+  background-color: #ddd;
+}
+/* アクティブ時とホバー時の色を指定*/
+.petition.active input,
+.petition input:hover {
+  background-color: #e00d26;
+}
+.reading.active input,
+.reading input:hover {
+  background-color: #1ca40a;
+}
+.safekeeping.active input,
+.safekeeping input:hover {
+  background-color: #219ed2;
+}
+.book_count {
+  margin-top: 5px;
+}
+/* ステータスボタンデザイン*/
+#cover .book_status input {
+  border: 0;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 25px;
+  padding: 0;
+  width: 70px;
+  height: 30px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+/* 本一覧ブロック */
+#main {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/* 書籍0件 */
+#no_books{
+  text-align: center;
+  color: #782F17;
+}
+/* 書籍一覧*/
+#book_list {
+  margin: 20px auto;
+}
+/* 書籍枠 */
+.book_item {
+  width: 270px;
+  margin: 15px;
+  float: left;
+  background-color: white;
+  border: solid 1px #8d3d15;
+  border-radius: 3px;
+}
+
+/* 書籍情報枠 */
+.book_item {
+  background-image: url("../images/back_book_item.jpg");
+}
+/* 書籍画像枠 */
+.book_item .book_image {
+  width: 270px;
+  height: 270px;
+  padding: 10px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+.book_item .book_image img {
+  max-width: 250px;
+  max-height: 250px;
+  /* 縦方向の揃え位置を指定 */
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/*.book_item .book_detail {
+  padding: 10px;
+  background-color: #fafafa;
+  border-top: solid 1px #ddd;
+}*/
+/* 書籍タイトル */
+.book_item .book_detail .book_title {
+  margin: 0 auto;
+  height: 50px;
+  text-align: center;
+  overflow: hidden;
+  color: #E7B776;  
+}
+/* 書籍情報ステータスボタンエリア */
+.book_item .book_detail form {
+  padding-top: 5px;
+  text-align: center;
+}
+/* 書籍ボタンデザイン */
+.book_item .book_detail .book_status input {
+  border: 0;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 4px;
+  padding: 0;
+  width: 70px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+/* 削除ボタン */
+.boook_delete {
+  margin-top: 5px;
+  text-align: right;
+}
+.book_delete input {
+  border: 0;
+  padding: 0;
+  background-color: white;
+  color: gray;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.book_delete img {
+  vertical-align: text-bottom;
+}
+
+footer {
+  padding: 20px 0;
+  text-align: center;
+  color: gray;
+}
+
+/* 書籍登録フォーム */
+.form_book {
+  width: 400px;
+  margin: 20px auto;
+}
+.form_book input, .form_book select {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+  width: 400px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  font-size: 18px; 
+}
+.form_book .book_image, .form_book .book_status {
+  margin-top: 5px;
+}
+.form_book .book_submit input {
+  margin-top: 20px;
+  color: white;
+  cursor: pointer;
+  background-color: #1ca40a;
+}
+
+/* 返却日 */
+.return_date_title{
+  color: #30B931;
+}
+/* datepickerカーソル指定 */
+.set_datepicker {
+  display: block;
+  /* 画像のマウスイベントを無効にするため親要素に指定 */
+  cursor: not-allowed;
+}
+.set_datepicker img {
+  /* デフォルトの画像要素を無効 */
+  pointer-events: none;
+}
+img.ui-datepicker-trigger{
+  margin-left: 7px!important;
+  vertical-align: middle;
+}
+.set_datepicker_reading img {
+  /* 貸出中のみイベントを有効 */
+  display: inline;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.datepicker{
+  text-align: center;
+  background-color:transparent;
+  border: none;
+  margin-bottom: 5px;
+  font-size: 20px;
+  color: #E7B776;
+}
+.form_datepicker{
+  float: right;
+  padding-right: 3%;
+}
+
+/* オーバーレレイ */
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  z-index: 1
+}
+
+/* 本詳細 */
+#book_detail {
+  width: 350px;
+  height: 150px;
+  position: fixed;
+  border: 2px solid #666;
+  background-color: #FFF;
+  display: none;
+  z-index: 2
+}
+
+/* メモ */
+textarea {
+  border:none;
+}
+
+/* アラート */
+/*.alert {
+  display: none;
+  position: fixed;
+  right: 0;
+}*/
+
+/* ページネーション */
+#paging {
+	text-align: center;
+}
+
+#paging ul{
+	margin: 0 auto;
+	display: inline-block
+}
+
+
+/* -----タブレット時----- */
+@media(min-width: 721px) and (max-width: 1100px){
+
+  #header {
+  	padding: 0 2%;
+  }
+
+  #main {
+    width: 100%;
+  }
+
+  /* 書籍0件 */
+  h1#no_books{
+    width: 100%;
+    text-align: center;
+    color: #782F17;
+  }
+
+  /* 書籍一覧*/
+  #book_list {
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+  }
+
+  .book_item {
+    width: 23%;
+    margin: 15px 1%;
+    float: none!important;
+  }
+
+  .book_item .book_image {
+    width: 100%;
+    height: auto;
+    padding: 7px;
+  }
+
+  .book_item .book_image img {
+    width: 100%;
+  }
+
+  /* 書籍詳細 */
+  .book_detail{
+    width: 100%;
+  }
+
+  /* 書籍タイトル */
+  .book_item .book_detail .book_title {
+    height:50px;
+    font-size: 12px;
+  }
+
+  /* 書籍情報ステータスボタンエリア */
+  .book_detail form {
+    padding: 5px 0 10px!important;
+    text-align: center;
+  }
+
+  /* 書籍ボタンデザイン */
+  .book_item .book_detail .book_status input {
+    font-size: 12px;
+    margin: 0 3px;
+    width: auto!important;
+    padding: 0 5px;
+  }
+
+  .book_status{
+    width: 30%;
+    height: 20px;
+  }
+
+  footer {
+    padding: 20px 0;
+    text-align: center;
+    color: gray;
+  }
+
+  /* 書籍登録フォーム */
+  .form_book {
+    width: 400px;
+    margin: 20px auto;
+  }
+  .form_book input, .form_book select {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    width: 400px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 18px; 
+  }
+  .form_book .book_image, .form_book .book_status {
+    margin-top: 5px;
+  }
+  .form_book .book_submit input {
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+    background-color: #1ca40a;
+  }
+
+  /* 返却日 */
+  .return_date_title::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+  /* datepickerカーソル指定 */
+  .set_datepicker {
+    display: block;
+    /* 画像のマウスイベントを無効にするため親要素に指定 */
+    cursor: not-allowed;
+  }
+  .set_datepicker img {
+    /* デフォルトの画像要素を無効 */
+    pointer-events: none;
+  }
+  img.ui-datepicker-trigger{
+    margin-left: 7px!important;
+    vertical-align: middle;
+    width: 15%;
+  }
+  .set_datepicker_reading img {
+    /* 貸出中のみイベントを有効 */
+    display: inline;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .datepicker{
+    font-size: 17px;
+    width: 75%;
+    float: left;
+    padding: 0 2%;
+  }
+
+  .form_datepicker{
+    width: 100%;
+    padding: 0 2%!important;
+  }
+
+  /* ページネーション */
+  #paging {
+  	text-align: center;
+  }
+
+  #paging ul{
+  	margin: 0 auto;
+  	display: inline-block
+  }
+
+}
+
+/* -----タブレット時----- */
+@media(max-width: 720px){
+
+  #header {
+    padding: 0 2%;
+    height: 50px;
+  }
+
+  #logo {
+    margin-top: 5px;
+  }
+
+  #logo img {
+    width: 40px!important;
+  }
+
+  header nav a {
+    font-size: 15px;
+  }
+
+  /* アイキャッチ */
+  #cover {
+    height: 200px;
+  }
+
+  #cover_title {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+
+
+  #main {
+    width: 100%;
+  }
+
+  /* 書籍0件 */
+  h1#no_books{
+    width: 100%;
+    text-align: center;
+    color: #782F17;
+    font-size: 23px;
+  }
+
+  /* 書籍一覧*/
+  #book_list {
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+  }
+
+  .book_item {
+    width: 31%;
+    margin: 10px 1%;
+    float: none!important;
+  }
+
+  .book_item .book_image {
+    width: 100%;
+    height: auto;
+    padding: 3px;
+  }
+
+  .book_item .book_image img {
+    width: 100%;
+  }
+
+  /* 書籍詳細 */
+  .book_detail{
+    width: 100%;
+  }
+
+  /* 書籍タイトル */
+  .book_item .book_detail .book_title {
+    height:40px;
+    font-size: 12px;
+  }
+
+  /* 書籍情報ステータスボタンエリア */
+  .book_detail form {
+    padding: 3px 0!important;
+    text-align: center;
+  }
+
+  /* 書籍ボタンデザイン */
+  .book_item .book_detail .book_status input {
+    font-size: 10px;
+    font-weight: normal;
+    margin: 0 2px;
+    width: auto!important;
+    height: 25px;
+    padding: 0 2px;
+  }
+
+  .book_status{
+    width: 30%;
+    height: 16px;
+  }
+
+  /* 削除ボタン */
+  .book_delete input {
+    font-size: 10px;
+    margin-right: 5px;
+    padding: 2px 3px;
+  }
+
+  footer {
+    padding: 20px 0;
+    text-align: center;
+    color: gray;
+  }
+
+  /* 書籍登録フォーム */
+  .form_book {
+    width: 400px;
+    margin: 20px auto;
+  }
+  .form_book input, .form_book select {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    width: 400px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    font-size: 18px; 
+  }
+  .form_book .book_image, .form_book .book_status {
+    margin-top: 5px;
+  }
+  .form_book .book_submit input {
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+    background-color: #1ca40a;
+  }
+
+  /* 返却日 */
+  .return_date_title{
+    font-size: 11px;
+    width: 100%;
+  }
+
+  .return_date_title::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+  /* datepickerカーソル指定 */
+  .set_datepicker {
+    display: block;
+    /* 画像のマウスイベントを無効にするため親要素に指定 */
+    cursor: not-allowed;
+  }
+  .set_datepicker img {
+    /* デフォルトの画像要素を無効 */
+    pointer-events: none;
+  }
+  img.ui-datepicker-trigger{
+    margin-left: 5px!important;
+    vertical-align: top;
+    position: relative;
+    top:2px;
+    width: 13%;
+  }
+  .set_datepicker_reading img {
+    /* 貸出中のみイベントを有効 */
+    display: inline;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .datepicker{
+    font-size: 13px;
+    width: 75%;
+    float: left;
+    padding: 0 2%;
+    text-align: left;
+  }
+
+  .form_datepicker{
+    width: 100%;
+    padding: 0 2%!important;
+  }
+
+  /* ページネーション */
+  #paging {
+  	text-align: center;
+  }
+
+  #paging ul{
+  	margin: 0 auto;
+  	display: inline-block
+  }
+  
+}

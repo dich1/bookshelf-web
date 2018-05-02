@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>Bookshelf | ほんだな</title>
+    <link rel="icon" href="./images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./css/bookshelf.css">
+  </head>
+  <body>
+    <header>
+      <div id="header">
+        <div id="logo">
+          <a href="./index.html"><img src="./images/logo.png" alt="Bookshelf"></a>
+        </div>
+        <nav>
+          <a href="./form.html"><img src="./images/icon_plus.png" alt="">書籍登録</a>
+        </nav>
+      </div>
+    </header>
+    <div class="wrapper">
+      <div id="main">
+        <form name="register_book" action="" class="form_book" enctype="multipart/form-data">
+          <div class="book_title">
+            <input id="form_book_title" type="text" name="book_title" placeholder="書籍タイトルを入力" value="" required>
+          </div>
+          <div class="book_image">
+            <input id="form_book_image" type="file" name="book_image" accept="image/png,image/jpeg,image/gif">
+          </div>
+          <div class="book_status">
+            <select name="book_status">
+              <option value="0">申請中</option>
+              <option value="1">貸出中</option>
+              <option value="2" selected>保管中</option>
+            </select>
+          </div>
+          <div class="book_submit">
+            <input type="button" name="submit_add_book" value="登録" onclick="registerBook(this);">
+          </div>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <small>© 2018 Bookshelf.</small>
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/api.js"></script>
+    <script type="text/javascript" src="./js/error.js"></script>
+    <script type="text/javascript" src="./js/form.js" defer></script>
+  </body>
+</html>
