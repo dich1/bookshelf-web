@@ -12,10 +12,8 @@ class Api::MemosController < ApplicationController
 
     respond_to do |format|
       if @api_memo.save
-        format.html { redirect_to @api_memo, notice: 'Memo was successfully created.' }
         format.json { render :show, status: :created, location: @api_memo }
       else
-        format.html { render :new }
         format.json { render json: @api_memo.errors, status: :unprocessable_entity }
       end
     end
@@ -25,10 +23,8 @@ class Api::MemosController < ApplicationController
   def update
     respond_to do |format|
       if @api_memo.update(api_memo_params)
-        format.html { redirect_to @api_memo, notice: 'Memo was successfully updated.' }
         format.json { render :show, status: :ok, location: @api_memo }
       else
-        format.html { render :edit }
         format.json { render json: @api_memo.errors, status: :unprocessable_entity }
       end
     end
@@ -38,7 +34,6 @@ class Api::MemosController < ApplicationController
   def destroy
     @api_memo.destroy
     respond_to do |format|
-      format.html { redirect_to api_memos_url, notice: 'Memo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

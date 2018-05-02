@@ -12,10 +12,8 @@ class Api::HistoriesController < ApplicationController
 
     respond_to do |format|
       if @api_history.save
-        format.html { redirect_to @api_history, notice: 'History was successfully created.' }
         format.json { render :show, status: :created, location: @api_history }
       else
-        format.html { render :new }
         format.json { render json: @api_history.errors, status: :unprocessable_entity }
       end
     end
@@ -25,10 +23,8 @@ class Api::HistoriesController < ApplicationController
   def update
     respond_to do |format|
       if @api_history.update(api_history_params)
-        format.html { redirect_to @api_history, notice: 'History was successfully updated.' }
         format.json { render :show, status: :ok, location: @api_history }
       else
-        format.html { render :edit }
         format.json { render json: @api_history.errors, status: :unprocessable_entity }
       end
     end
@@ -38,7 +34,6 @@ class Api::HistoriesController < ApplicationController
   def destroy
     @api_history.destroy
     respond_to do |format|
-      format.html { redirect_to api_histories_url, notice: 'History was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

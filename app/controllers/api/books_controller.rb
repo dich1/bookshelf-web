@@ -19,10 +19,8 @@ class Api::BooksController < ApplicationController
 
     respond_to do |format|
       if @api_book.save
-        format.html { redirect_to @api_book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @api_book }
       else
-        format.html { render :new }
         format.json { render json: @api_book.errors, status: :unprocessable_entity }
       end
     end
@@ -32,10 +30,8 @@ class Api::BooksController < ApplicationController
   def update
     respond_to do |format|
       if @api_book.update(api_book_params)
-        format.html { redirect_to @api_book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @api_book }
       else
-        format.html { render :edit }
         format.json { render json: @api_book.errors, status: :unprocessable_entity }
       end
     end
@@ -45,7 +41,6 @@ class Api::BooksController < ApplicationController
   def destroy
     @api_book.destroy
     respond_to do |format|
-      format.html { redirect_to api_books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
