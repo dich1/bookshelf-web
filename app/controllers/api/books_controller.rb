@@ -1,9 +1,16 @@
 class Api::BooksController < ApplicationController
   before_action :set_api_book, only: [:update, :destroy]
 
+  def initialize
+    @hash = Hash.new { |h, k| h[k] = [] }
+  end
+
   # GET /api/books.json
   def index
     @api_books = Book.all
+    @hash["books"] = @api_books
+    
+    render :json => @hash
   end
 
   # POST /api/books.json
