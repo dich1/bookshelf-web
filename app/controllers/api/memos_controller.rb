@@ -1,27 +1,11 @@
 class Api::MemosController < ApplicationController
   before_action :set_api_memo, only: [:show, :edit, :update, :destroy]
 
-  # GET /api/memos
   # GET /api/memos.json
   def index
     @api_memos = Memo.all
   end
 
-  # GET /api/memos/1
-  # GET /api/memos/1.json
-  def show
-  end
-
-  # GET /api/memos/new
-  def new
-    @api_memo = Memo.new
-  end
-
-  # GET /api/memos/1/edit
-  def edit
-  end
-
-  # POST /api/memos
   # POST /api/memos.json
   def create
     @api_memo = Memo.new(api_memo_params)
@@ -37,7 +21,6 @@ class Api::MemosController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/memos/1
   # PATCH/PUT /api/memos/1.json
   def update
     respond_to do |format|
@@ -51,7 +34,6 @@ class Api::MemosController < ApplicationController
     end
   end
 
-  # DELETE /api/memos/1
   # DELETE /api/memos/1.json
   def destroy
     @api_memo.destroy

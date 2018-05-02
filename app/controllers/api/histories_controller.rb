@@ -1,27 +1,11 @@
 class Api::HistoriesController < ApplicationController
   before_action :set_api_history, only: [:show, :edit, :update, :destroy]
 
-  # GET /api/histories
   # GET /api/histories.json
   def index
     @api_histories = History.all
   end
 
-  # GET /api/histories/1
-  # GET /api/histories/1.json
-  def show
-  end
-
-  # GET /api/histories/new
-  def new
-    @api_history = History.new
-  end
-
-  # GET /api/histories/1/edit
-  def edit
-  end
-
-  # POST /api/histories
   # POST /api/histories.json
   def create
     @api_history = History.new(api_history_params)
@@ -37,7 +21,6 @@ class Api::HistoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/histories/1
   # PATCH/PUT /api/histories/1.json
   def update
     respond_to do |format|
@@ -51,7 +34,6 @@ class Api::HistoriesController < ApplicationController
     end
   end
 
-  # DELETE /api/histories/1
   # DELETE /api/histories/1.json
   def destroy
     @api_history.destroy

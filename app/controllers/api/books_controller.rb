@@ -1,27 +1,11 @@
 class Api::BooksController < ApplicationController
   before_action :set_api_book, only: [:show, :edit, :update, :destroy]
 
-  # GET /api/books
   # GET /api/books.json
   def index
     @api_books = Book.all
   end
 
-  # GET /api/books/1
-  # GET /api/books/1.json
-  def show
-  end
-
-  # GET /api/books/new
-  def new
-    @api_book = Book.new
-  end
-
-  # GET /api/books/1/edit
-  def edit
-  end
-
-  # POST /api/books
   # POST /api/books.json
   def create
     @api_book = Book.new(api_book_params)
@@ -37,7 +21,6 @@ class Api::BooksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/books/1
   # PATCH/PUT /api/books/1.json
   def update
     respond_to do |format|
@@ -51,7 +34,6 @@ class Api::BooksController < ApplicationController
     end
   end
 
-  # DELETE /api/books/1
   # DELETE /api/books/1.json
   def destroy
     @api_book.destroy
