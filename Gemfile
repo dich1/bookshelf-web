@@ -51,6 +51,8 @@ group :development, :test do
   gem 'rails-erd'
   gem 'schemadoc'
   gem 'yard'
+  gem 'hirb'
+  gem 'hirb-unicode'
 end
 
 group :test do
