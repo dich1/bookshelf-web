@@ -93,8 +93,8 @@ class Api::BooksController < ApplicationController
         end
         
         hash_book = book.attributes
-        hash_book["status"] = status;
-        hash_book["return_date"] = return_date;
+        hash_book["status"] = status
+        hash_book["return_date"] = return_date
         @ary << hash_book
       }
     end
