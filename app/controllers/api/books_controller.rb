@@ -1,3 +1,6 @@
+# 本関連APIコントローラークラス
+#
+# 返却値がある場合、JSON形式で返す
 class Api::BooksController < ApplicationController
   before_action :set_book, only: [:update, :destroy]
 
@@ -5,7 +8,8 @@ class Api::BooksController < ApplicationController
     @hash = Hash.new { |h, k| h[k] = [] }
   end
 
-  # GET /api/books.json
+  # 本一覧取得API
+  # GET /api/books
   def index
     @api_books = Book.all
     @hash["books"] = @api_books
@@ -13,7 +17,7 @@ class Api::BooksController < ApplicationController
     render :json => @hash
   end
 
-  # POST /api/books.json
+  # POST /api/books
   def create
     @book = Book.new(book_params)
 
@@ -26,7 +30,7 @@ class Api::BooksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/books/1.json
+  # PATCH/PUT /api/books/:id
   def update
     respond_to do |format|
       if @book.update(book_params)
@@ -37,7 +41,7 @@ class Api::BooksController < ApplicationController
     end
   end
 
-  # DELETE /api/books/1.json
+  # DELETE /api/books/:id
   def destroy
     @book.destroy
     respond_to do |format|
