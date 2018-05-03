@@ -29,32 +29,27 @@ class Api::BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
 
-    respond_to do |format|
-      if @book.save
-        format.json { render :show, status: :created, location: @book }
-      else
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
+    if @book.save
+      # historiesにユーザーIDと返却日を登録する
+      render :show, status: :created, location: @book 
+    else
+      render json: @book.errors, status: :unprocessable_entity 
     end
   end
 
   # PATCH/PUT /api/books/:id
   def update
-    respond_to do |format|
-      if @book.update(book_params)
-        format.json { render :show, status: :ok, location: @book }
-      else
-        format.json { render json: @book.errors, status: :unprocessable_entity }
-      end
+    if @book.update(book_params)
+      render :show, status: :ok, location: @book 
+    else
+      render json: @book.errors, status: :unprocessable_entity 
     end
   end
 
   # DELETE /api/books/:id
   def destroy
     @book.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+      head :no_content 
   end
 
   private
