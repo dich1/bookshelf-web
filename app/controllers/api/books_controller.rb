@@ -4,8 +4,10 @@
 class Api::BooksController < ApplicationController
   before_action :set_book, only: [:update, :destroy]
   # TODO ENUMにする。用途の範囲が広くなったら外に切り出す。
-  LENDING     = 0
-  SAFEKEEPING = 1
+  LENDING        = 0
+  SAFEKEEPING    = 1
+
+  PER_PAGE_LIMIT = 20
 
   # 返却値をラップするための変数を生成
   def initialize
@@ -80,7 +82,8 @@ class Api::BooksController < ApplicationController
     # 
     # @param [Object] books Bookモデルから取得した本一覧
     def set_books_response(books)
-      books.each {|book| 
+      per_page_books = books.last(PER_PAGE_LIMIT)
+      per_page_books.each {|book| 
         # 1冊毎の状態と返却予定日を設定する
         status = SAFEKEEPING
         return_date = ''
