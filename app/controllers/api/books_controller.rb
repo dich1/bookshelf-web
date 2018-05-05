@@ -9,23 +9,13 @@ class Api::BooksController < ApplicationController
 
   PER_PAGE_LIMIT = 20
 
-  # 返却値をラップするための変数を生成
-  def initialize
-    @hash = Hash.new { |h, k| h[k] = [] }
-  end
-
   # 本一覧取得API
   # 
   # GET /api/books
   def index
-    @books = Book.all
-    @hash["books"] = Book.new.get_books
-    # TODO カウンターキャッシュにする
-    @hash["total_count"] = Book.count
-    # @hash["rending_count"] = 
-    # @hash["safekeeping_count"] = 
+    books_response = Book.new.get_books
     
-    render :json => @hash
+    render :json => books_response
   end
 
   # POST /api/books

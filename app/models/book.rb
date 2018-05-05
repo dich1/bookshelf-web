@@ -4,6 +4,11 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :image, presence: true
 
+  # 返却値をラップするための変数を生成
+  def initialize
+    @hash = Hash.new { |h, k| h[k] = [] }
+  end
+
   # 本の一覧として返す返却値を設定する
   # 
   # @param [Object] books Bookモデルから取得した本一覧
@@ -28,7 +33,13 @@ class Book < ApplicationRecord
       @ary << hash_book
     }
 
-    return @ary
+    @hash["books"] = @ary
+    # TODO カウンターキャッシュにする
+    @hash["total_count"] = Book.count
+    # @hash["rending_count"] = 
+    # @hash["safekeeping_count"] = 
+
+    return @hash
   end
 
   # 貸出中かを判定する
