@@ -15,7 +15,7 @@ class Book < ApplicationRecord
   def get_books
     @ary  = Array.new
     # TODO 定数にする
-    per_page_books = Book.last(20)
+    per_page_books = Book.last(PER_PAGE_LIMIT)
     per_page_books.each {|book| 
       # 1冊毎の状態と返却予定日を設定する
       # TODO 定数にする

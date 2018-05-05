@@ -7,7 +7,6 @@ class Api::BooksController < ApplicationController
   LENDING        = 0
   SAFEKEEPING    = 1
 
-  PER_PAGE_LIMIT = 20
 
   # 本一覧取得API
   # 
