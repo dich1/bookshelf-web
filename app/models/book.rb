@@ -3,6 +3,7 @@ class Book < ApplicationRecord
   has_many :histories
   validates :title, presence: true
   validates :image, presence: true
+  enum status: {lending: 0, safekeeping: 1}
 
   # 返却値をラップするための変数を生成
   def initialize
@@ -19,11 +20,11 @@ class Book < ApplicationRecord
     per_page_books.each {|book| 
       # 1冊毎の状態と返却予定日を設定する
       # TODO 定数にする
-      status = 1
+      status = Book.statuses["safekeeping"]
       return_date = ''
       if is_lending(book)
         # TODO 定数にする
-        status = 0
+        status = Book.statuses["lending"]
         return_date = book.histories.where.not(checkout_date: nil, return_date: nil).last.return_date
       end
       

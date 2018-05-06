@@ -3,10 +3,6 @@
 # 返却値がある場合、JSON形式で返す
 class Api::BooksController < ApplicationController
   before_action :set_book, only: [:update, :destroy]
-  # TODO ENUMにする。用途の範囲が広くなったら外に切り出す。
-  LENDING        = 0
-  SAFEKEEPING    = 1
-
 
   # 本一覧取得API
   # 
