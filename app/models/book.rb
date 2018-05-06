@@ -15,15 +15,15 @@ class Book < ApplicationRecord
   # @param [Object] books Bookモデルから取得した本一覧
   def get_books
     @ary  = Array.new
-    # TODO 定数にする
+
     per_page_books = Book.last(PER_PAGE_LIMIT)
+
+    # TODO active_model_serializersでロジックを書く
     per_page_books.each {|book| 
-      # 1冊毎の状態と返却予定日を設定する
-      # TODO 定数にする
+      # 1冊毎のステータスと返却予定日をチェックし設定する
       status = Book.statuses["safekeeping"]
       return_date = ''
       if is_lending(book)
-        # TODO 定数にする
         status = Book.statuses["lending"]
         return_date = book.histories.where.not(checkout_date: nil, return_date: nil).last.return_date
       end
@@ -37,6 +37,7 @@ class Book < ApplicationRecord
     @hash["books"] = @ary
     # TODO カウンターキャッシュにする
     @hash["total_count"] = Book.count
+    # TODO active_model_serializers導入時に設定する
     # @hash["rending_count"] = 
     # @hash["safekeeping_count"] = 
 
