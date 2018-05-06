@@ -8,9 +8,9 @@ class Api::BooksController < ApplicationController
   # 
   # GET /api/books
   def index
-    books_response = Book.new.get_books
+    @books = Book.new.get_books
     
-    render :json => books_response
+    render :json => @books
   end
 
   # POST /api/books
