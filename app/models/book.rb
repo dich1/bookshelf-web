@@ -19,17 +19,17 @@ class Book < ApplicationRecord
     books.each {|book| 
       # 1冊毎のステータスと返却予定日をチェックし設定する
       status = Book.statuses["safekeeping"]
-      return_date = ''
+      return_due_date = ''
 
       if is_lending(book)
         status = Book.statuses["lending"]
-        return_date = book.histories.where.not(checkout_date: nil, return_date: nil).last.return_date
+        return_due_date = book.histories.where.not(checkout_date: nil).where(return_date: nil).last.return_due_date
         rending_count += 1
       end
       
       hash_book = book.attributes
       hash_book["status"]      = status
-      hash_book["return_date"] = return_date
+      hash_book["return_due_date"] = return_due_date
       @ary << hash_book
     }
 
