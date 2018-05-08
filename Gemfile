@@ -54,6 +54,7 @@ group :development, :test do
   gem 'yard'
   gem 'hirb'
   gem 'hirb-unicode'
+  gem 'migration_comments'
 end
 
 group :test do
