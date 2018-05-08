@@ -5,15 +5,11 @@ class Book < ApplicationRecord
   validates :image, presence: true
   enum status: {lending: 0, safekeeping: 1}
 
-  # 返却値をラップするための変数を生成
-  def initialize
-    @hash = Hash.new { |h, k| h[k] = [] }
-  end
-
   # 本の一覧として返す返却値を設定する
   # 
   # @param [Object] books Bookモデルから取得した本一覧
   def get_books
+    @hash = Hash.new { |h, k| h[k] = [] }
     @ary  = Array.new
 
     books = Book.all
