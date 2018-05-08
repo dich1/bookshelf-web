@@ -19,7 +19,7 @@ class Api::BooksController < ApplicationController
 
     if @book.save
       # historiesにユーザーIDと返却日を登録する
-      render :show, status: :created, location: @book 
+      render :json => {}, status: :created
     else
       render json: @book.errors, status: :unprocessable_entity 
     end
@@ -48,6 +48,6 @@ class Api::BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.fetch(:book, {})
+      params.fetch(:book, {}).permit(:title, :image)
     end
 end
