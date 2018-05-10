@@ -35,14 +35,11 @@ gem 'active_model_serializers'
 # gem 'capistrano-rails', group: :development
 
 # Use all
-gem 'dotenv-rails'
 gem 'carrierwave'
 gem 'fog-aws'
-
-# for Scraiping
-gem "poltergeist"
-gem "devise"
-gem "ransack"
+gem 'poltergeist'
+gem 'devise'
+gem 'ransack'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -70,6 +67,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   
   gem 'rename'
+  gem 'dotenv-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
