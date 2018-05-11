@@ -5,6 +5,7 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :image, presence: true
   enum status: {lending: 0, safekeeping: 1}
+  mount_uploader :image, ImageUploader
 
   # 本の一覧として返す返却値を設定する
   # 
