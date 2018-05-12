@@ -39,7 +39,7 @@ class Book < ApplicationRecord
     # TODO カウンターキャッシュにする
     total_count       = books.count
     safekeeping_count = total_count - rending_count
-
+    # TODO historyのモデルから取得する情報にする
     @hash["total_count"]       = total_count
     @hash["rending_count"]     = rending_count
     @hash["safekeeping_count"] = safekeeping_count
