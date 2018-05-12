@@ -17,7 +17,9 @@ class Api::HistoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/histories/1
+  # 履歴更新API
+  # 
+  # PATCH/PUT /api/histories/:id
   def update
     if @history.update(history_params)
       render :show, status: :ok, location: @history
@@ -26,7 +28,7 @@ class Api::HistoriesController < ApplicationController
     end
   end
 
-  # DELETE /api/histories/1
+  # DELETE /api/histories/:id
   def destroy
     @history.destroy
       head :no_content
