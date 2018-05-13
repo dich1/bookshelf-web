@@ -20,7 +20,7 @@ class Api::BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      render :json => {}, status: :created
+      head :created
     else
       render json: @book.errors, status: :unprocessable_entity 
     end
@@ -31,7 +31,7 @@ class Api::BooksController < ApplicationController
   # PATCH/PUT /api/books/:id
   def update
     if @book.update(book_params)
-      render :json => {}, status: :no_content
+      head :no_content
     else
       render json: @book.errors, status: :unprocessable_entity 
     end
