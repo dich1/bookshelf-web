@@ -12,13 +12,11 @@ class Book < ApplicationRecord
   # @param  [Integer] page  ページ番号
   # @return [Object]  books 本一覧
   def get_books(page)
-    @hash = Hash.new { |h, k| h[k] = [] }
     @ary  = Array.new
 
     books = Book.page(page).per(PER_PAGE_LIMIT).order("updated_at DESC")
 
     # TODO active_model_serializersでロジックを書く
-    rending_count = 0
     books.each {|book| 
       # 1冊毎のステータスと返却予定日をチェックし設定する
       status = Book.statuses["safekeeping"]
@@ -27,7 +25,6 @@ class Book < ApplicationRecord
       if is_lending(book)
         status = Book.statuses["lending"]
         return_due_date = book.histories.where.not(checkout_date: nil).where(return_date: nil).last.return_due_date
-        rending_count += 1
       end
       
       hash_book = book.attributes
@@ -37,16 +34,7 @@ class Book < ApplicationRecord
       @ary << hash_book
     }
 
-    @hash["books"] = @ary
-    # TODO カウンターキャッシュにする
-    total_count       = books.count
-    safekeeping_count = total_count - rending_count
-    # TODO historyのモデルから取得する情報にする
-    @hash["total_count"]       = total_count
-    @hash["rending_count"]     = rending_count
-    @hash["safekeeping_count"] = safekeeping_count
-
-    return @hash
+    return @ary
   end
 
   # 貸出中かを判定する
