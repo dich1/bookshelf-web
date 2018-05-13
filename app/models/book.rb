@@ -30,8 +30,9 @@ class Book < ApplicationRecord
       end
       
       hash_book = book.attributes
-      hash_book["status"]      = status
+      hash_book["status"]          = status
       hash_book["return_due_date"] = return_due_date
+      
       @ary << hash_book
     }
 
