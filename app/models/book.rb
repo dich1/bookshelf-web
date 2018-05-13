@@ -9,12 +9,13 @@ class Book < ApplicationRecord
 
   # 本の一覧として返す返却値を設定する
   # 
-  # @param [Object] books Bookモデルから取得した本一覧
-  def get_books
+  # @param  [Integer] page  ページ番号
+  # @return [Object]  books 本一覧
+  def get_books(page)
     @hash = Hash.new { |h, k| h[k] = [] }
     @ary  = Array.new
 
-    books = Book.all
+    books = Book.page(page).per(PER_PAGE_LIMIT).order("updated_at DESC")
 
     # TODO active_model_serializersでロジックを書く
     rending_count = 0

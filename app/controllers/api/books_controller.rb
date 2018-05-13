@@ -8,7 +8,9 @@ class Api::BooksController < ApplicationController
   # 
   # GET /api/books
   def index
-    @books = Book.new.get_books
+    page = params[:page].to_i ||= 1
+    
+    @books = Book.new.get_books(page)
     
     render :json => @books
   end

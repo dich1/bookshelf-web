@@ -35,6 +35,7 @@ gem 'active_model_serializers'
 # gem 'capistrano-rails', group: :development
 
 # Use all
+gem 'kaminari'
 gem 'carrierwave'
 gem 'fog-aws'
 gem 'poltergeist'
