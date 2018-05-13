@@ -51,6 +51,6 @@ class Api::BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.fetch(:book, {}).permit(:id, :title, :image, :genre_id, histories_attributes: [:book_id, :user_id, :checkout_date, :return_due_date, :return_date, :_destroy])
+      params.fetch(:book, {}).permit(:title, :image, :genre_id, histories_attributes: [:id, :book_id, :user_id, :checkout_date, :return_due_date, :return_date, :_destroy])
     end
 end
