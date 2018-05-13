@@ -1,1 +1,1 @@
-PER_PAGE_LIMIT = 20
+PER = 20

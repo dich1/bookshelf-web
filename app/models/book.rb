@@ -14,7 +14,7 @@ class Book < ApplicationRecord
   def get_books(page)
     @ary  = Array.new
 
-    books = Book.page(page).per(PER_PAGE_LIMIT).order("updated_at DESC")
+    books = Book.page(page).per(PER).order("updated_at DESC")
 
     # TODO active_model_serializersでロジックを書く
     books.each {|book| 
