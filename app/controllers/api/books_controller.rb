@@ -43,6 +43,8 @@ class Api::BooksController < ApplicationController
     end
   end
 
+  # 本削除API。関連データは削除しない
+  #
   # DELETE /api/books/:id
   def destroy
     @book.destroy
