@@ -8,15 +8,11 @@ class Api::BooksController < ApplicationController
   # 
   # GET /api/books
   def index
-    @hash  = Hash.new { |h, k| h[k] = [] }  
-    @books = Book.new
-
     page = params[:page].to_i ||= 1
 
-    @hash["books"]             = @books.get_books(page)
-    @hash["total_count"]       = Book.all.size
+    @books = Book.page(page).per(PER).order("updated_at DESC")
     
-    render :json => @hash
+    render :json => @books
   end
 
   # 本登録API。同時に借りる場合、historiesにユーザーIDと返却日を登録する
