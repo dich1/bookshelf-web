@@ -10,7 +10,9 @@ class Api::BooksController < ApplicationController
   def index
     page = params[:page].to_i ||= 1
 
+    # TODO 右辺をモデルに寄せる
     @books = Book.page(page).per(PER).order("updated_at DESC")
+    # TODO 総本数、貸出中本数、保管中本数のフィールドを追加する
     
     render :json => @books
   end
