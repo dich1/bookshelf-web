@@ -40,6 +40,8 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'poltergeist'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'ransack'
 
 group :development, :test do
