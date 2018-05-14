@@ -30,9 +30,8 @@ class Api::HistoriesController < ApplicationController
 
   # DELETE /api/histories/:id
   def destroy
-    if @history.destroy
-      head :no_content
-    end
+    @history.destroy
+    head :no_content
   end
 
   private

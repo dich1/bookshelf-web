@@ -46,7 +46,7 @@ class Api::BooksController < ApplicationController
   # DELETE /api/books/:id
   def destroy
     @book.destroy
-      head :no_content 
+    head :no_content 
   end
 
   private
