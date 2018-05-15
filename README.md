@@ -56,6 +56,8 @@
 ### Gemを最大限活用する
 - ER図生成
    - rails-erd
+      - rake db:migrate時に生成するよう設定
+         - bookshelf-erd.png
 
 - DB定義書
    - schemadoc(できたら)
@@ -65,13 +67,22 @@
 
 - クラス図生成
    - yard graph
+      - rake db:migrate時に生成するよう設定
+         - bookshelf-classd.png
 
 - コメント
    - yard
+      - yardoc
+      - yard server
+         - http://localhost:8808
 
 ## テスト
 - RSpec
    - Test::Unitより使い易いらしい
+
+## JSONレスポンス設定
+- active_model_serializers
+   - jbuilderより処理速度が速く、テストが書き易いらしい
 
 ## 環境構築
 ### Docker使う場合
