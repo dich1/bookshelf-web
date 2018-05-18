@@ -9,18 +9,18 @@ class User < ApplicationRecord
 
     unless user
       user = User.create(
+        email:    auth.info.email,
+        password: Devise.friendly_token[0, 20],
+        name:     auth.info.name,
+        image:    auth.info.image,
         uid:      auth.uid,
-        provider: auth.provider,
-        email:    User.dummy_email(auth),
-        password: Devise.friendly_token[0, 20]
+        provider: auth.provider
       )
     end
-
     user
   end
 
   private
-
   def self.dummy_email(auth)
     "#{auth.uid}-#{auth.provider}@example.com"
   end
