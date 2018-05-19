@@ -1,10 +1,10 @@
 class Api::UsersController < ApplicationController
-  before_action :set_api_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /api/users
   # GET /api/users.json
   def index
-    @api_users = User.all
+    @users = User.all
   end
 
   # GET /api/users/1
@@ -14,7 +14,7 @@ class Api::UsersController < ApplicationController
 
   # GET /api/users/new
   def new
-    @api_user = User.new
+    @user = User.new
   end
 
   # GET /api/users/1/edit
@@ -24,15 +24,15 @@ class Api::UsersController < ApplicationController
   # POST /api/users
   # POST /api/users.json
   def create
-    @api_user = User.new(api_user_params)
+    @user = User.new(user_params)
 
     respond_to do |format|
-      if @api_user.save
-        format.html { redirect_to @api_user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @api_user }
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
-        format.json { render json: @api_user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,12 +41,12 @@ class Api::UsersController < ApplicationController
   # PATCH/PUT /api/users/1.json
   def update
     respond_to do |format|
-      if @api_user.update(api_user_params)
-        format.html { redirect_to @api_user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @api_user }
+      if @user.update(user_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
-        format.json { render json: @api_user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,21 +54,21 @@ class Api::UsersController < ApplicationController
   # DELETE /api/users/1
   # DELETE /api/users/1.json
   def destroy
-    @api_user.destroy
+    @user.destroy
     respond_to do |format|
-      format.html { redirect_to api_users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_api_user
-      @api_user = User.find(params[:id])
+    def set_user
+      @user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def api_user_params
-      params.fetch(:api_user, {})
+    def user_params
+      params.fetch(:user, {})
     end
 end
