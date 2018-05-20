@@ -10,8 +10,7 @@ class Api::BooksController < ApplicationController
   def index
     page = params[:page].to_i ||= 1
 
-    # TODO 右辺をモデルに寄せる
-    @books = Book.page(page).per(PER).order("updated_at DESC")
+    @books = Book.per_newest(page)
     # TODO 総本数、貸出中本数、保管中本数のフィールドを追加する
     
     render :json => @books
@@ -53,6 +52,7 @@ class Api::BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
+      # @book = Book.find(params[:id]).histories.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
