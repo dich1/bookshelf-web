@@ -1,14 +1,15 @@
+# ユーザー関連APIコントローラークラス
+#
+# 返却値がある場合、JSON形式で返す
 class Api::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /api/users
-  # GET /api/users.json
   def index
     @users = User.all
   end
 
-  # GET /api/users/1
-  # GET /api/users/1.json
+  # GET /api/users/:id
   def show
   end
 
@@ -22,7 +23,6 @@ class Api::UsersController < ApplicationController
   end
 
   # POST /api/users
-  # POST /api/users.json
   def create
     @user = User.new(user_params)
 
@@ -37,8 +37,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/users/1
-  # PATCH/PUT /api/users/1.json
+  # PATCH/PUT /api/users/:id
   def update
     respond_to do |format|
       if @user.update(user_params)
@@ -51,8 +50,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  # DELETE /api/users/1
-  # DELETE /api/users/1.json
+  # DELETE /api/users/:id
   def destroy
     @user.destroy
     respond_to do |format|
