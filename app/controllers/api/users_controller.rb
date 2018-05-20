@@ -11,6 +11,7 @@ class Api::UsersController < ApplicationController
 
   # GET /api/users/:id
   def show
+    render :json => @user
   end
 
   # GET /api/users/new
