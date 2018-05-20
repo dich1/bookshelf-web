@@ -29,11 +29,19 @@ class Api::BooksController < ApplicationController
     end
   end
 
+  # TODO 適切なAPI名にする。
   # 本更新API。返却情報を更新する場合、historiesの返却日予定日または返却日を更新する
   #
   # PATCH/PUT /api/books/:id
   def update
-    if @book.update(book_params)
+     # TODO active_model_serializersでレスポンスを設定する
+    hash_book_params = book_params.to_h
+    # hash_book_params["histories_attributes"][0]["id"] = Book.lending_history_id(params[:id])
+    # TODO scopeにする
+    hash_book_params["histories_attributes"][0]["id"] = Book.find(params[:id]).histories.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last.id
+    # TODO 保管中だった場合の処理を追加する
+    puts hash_book_params
+    if @book.update(hash_book_params)
       head :no_content
     else
       render json: @book.errors, status: :unprocessable_entity 
