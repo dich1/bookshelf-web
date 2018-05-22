@@ -40,7 +40,6 @@ class Api::BooksController < ApplicationController
     # TODO scopeにする
     hash_book_params["histories_attributes"][0]["id"] = Book.find(params[:id]).histories.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last.id
     # TODO 保管中だった場合の処理を追加する
-    puts hash_book_params
     if @book.update(hash_book_params)
       head :no_content
     else
