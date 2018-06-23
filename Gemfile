@@ -31,9 +31,6 @@ gem 'active_model_serializers'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Use all
 gem 'kaminari'
 gem 'carrierwave'
@@ -44,7 +41,16 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'ransack'
 
+group :production, :staging do
+  gem 'unicorn'
+end
+
 group :development, :test do
+  # Use Capistrano for deployment
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.6'
