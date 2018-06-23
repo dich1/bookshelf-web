@@ -54,6 +54,6 @@ bookshelf-erd.png
 # Ignore ruby version
 .ruby-version
 
-# Ignore Gemfile
-Gemfile.lock
+# Ignore DB setting
+config/database.yml
 
