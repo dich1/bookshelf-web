@@ -57,3 +57,8 @@ bookshelf-erd.png
 # Ignore DB setting
 config/database.yml
 
+# Ignore 
+.rspec
+/public/system
+/spec/tmp
+
