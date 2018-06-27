@@ -40,6 +40,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'ransack'
+gem 'migration_comments'
 
 group :production, :staging do
   gem 'unicorn'
@@ -60,7 +61,6 @@ group :development, :test do
   gem 'yard'
   gem 'hirb'
   gem 'hirb-unicode'
-  gem 'migration_comments'
 end
 
 group :test do
