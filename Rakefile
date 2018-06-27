@@ -6,7 +6,9 @@ require_relative 'config/application'
 Rails.application.load_tasks
 
 Rake::Task['db:migrate'].enhance do
-  Rake::Task[:after_migrate].invoke
+  if Rails.env.development?
+    Rake::Task[:after_migrate].invoke
+  end
 end
 
 task :after_migrate do
