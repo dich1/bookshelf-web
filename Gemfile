@@ -42,10 +42,6 @@ gem 'omniauth-facebook'
 gem 'ransack'
 gem 'migration_comments'
 
-group :production, :staging do
-  gem 'unicorn'
-end
-
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano'
