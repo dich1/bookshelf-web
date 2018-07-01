@@ -54,7 +54,7 @@ set :keep_releases, 3
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
+set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
 
 namespace :deploy do
 
@@ -69,7 +69,7 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    invoke 'unicorn:start'
+    invoke 'puma:start'
   end
 
   desc 'Upload database.yml'
