@@ -31,10 +31,20 @@
        - 延滞告知
        - 借りてる人へのメッセージリンク
 
+## アーキテクチャ
+- rails
+- postgres
+- nginx
+- puma
+- capistrano
+- circleci
+- docker
+- ec2
+
 ## アーキテクチャのスタイルの方針
 - REST API
 - ビュー使う際は極力htmlベース(テンプレートを使わない)
-   - フロントとして切り離し易いため
+   - フロントとして切り離し易いため(Vueに移行予定)
 
 ## 開発フロー
 ### github-flow  
