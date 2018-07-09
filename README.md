@@ -32,6 +32,7 @@
        - 借りてる人へのメッセージリンク
 
 ## アーキテクチャ
+![bookshelf構成図](https://github.com/dich1/bookshelf-web/blob/master/bookshelf-architecture.png?raw=true)
 - rails
 - postgres
 - nginx
