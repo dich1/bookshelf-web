@@ -2,6 +2,10 @@ version: '3'
 services:
   db:
     image: postgres
+    ports:
+      - "15432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
   web:
@@ -13,3 +17,9 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  nginx:
+    build: containers/nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - web
