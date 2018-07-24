@@ -12,7 +12,5 @@ RUN mkdir -p tmp/sockets
 VOLUME /bookshelf-web/public
 VOLUME /bookshelf-web/tmp
 
-RUN bundle exec rake assets:precompile
-
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
