@@ -8,6 +8,7 @@ RUN bundle install
 COPY . /bookshelf-web
 
 RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/pids
 
 VOLUME /bookshelf-web/public
 VOLUME /bookshelf-web/tmp
