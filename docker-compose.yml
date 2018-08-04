@@ -13,13 +13,21 @@ services:
     build: .
     volumes:
       - .:/bookshelf-web
+      - tmp-data:/bookshelf-web/tmp
+      - public-data:/bookshelf-web/public
     ports:
       - "3000:3000"
     depends_on:
       - db
   nginx:
     build: containers/nginx
+    volumes:
+      - tmp-data:/bookshelf-web/tmp
+      - public-data:/bookshelf-web/public
     ports:
       - "80:80"
     depends_on:
       - web
+volumes:
+  tmp-data:
+  public-data:

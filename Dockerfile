@@ -10,8 +10,5 @@ COPY . /bookshelf-web
 RUN mkdir -p tmp/sockets
 RUN mkdir -p tmp/pids
 
-VOLUME /bookshelf-web/public
-VOLUME /bookshelf-web/tmp
-
 EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD RAILS_ENV=production bundle exec pumactl start
