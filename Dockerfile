@@ -11,4 +11,4 @@ RUN mkdir -p tmp/sockets
 RUN mkdir -p tmp/pids
 
 EXPOSE 3000
-CMD RAILS_ENV=production bundle exec pumactl start
+CMD RAILS_ENV=${RAILS_ENV} bundle exec pumactl start

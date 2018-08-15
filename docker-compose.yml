@@ -9,7 +9,7 @@ services:
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
   web:
-    env_file: .env
+    env_file: ./.env
     build: .
     volumes:
       - .:/bookshelf-web
@@ -17,6 +17,8 @@ services:
       - public-data:/bookshelf-web/public
     ports:
       - "3000:3000"
+    environment:
+      - "RAILS_ENV=${RAILS_ENV}"
     depends_on:
       - db
   nginx:
