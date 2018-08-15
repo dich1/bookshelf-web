@@ -44,14 +44,16 @@
 
 ## アーキテクチャのスタイルの方針
 - REST API
-- ビュー使う際は極力htmlベース(テンプレートを使わない)
+- ひとまずビュー使う際は極力htmlベース(テンプレート機能を使わない)
    - フロントとして切り離し易いため(Vueに移行予定)
+
+## ER図
+![ER図](https://github.com/dich1/bookshelf-web/blob/master/bookshelf-erd.png?raw=true)
 
 ## 開発フロー
 ### github-flow  
-- 現状まっさらなため、開発ブランチ1つで行う(現行版の置き替えまで)
-- materからdev作成->開発->rebase->masterにPR->merge 繰り返し
-- 代わりにコミットに下記のprefixを使う
+- 開発ブランチ1つで行う(現行版の置き替えまで)
+- コミットには下記のprefixを使う
    - [feat]機能の追加
    - [fix]バグの修正
    - [refactor]書き替え
@@ -103,9 +105,9 @@ https://docs.docker.com/docker-for-mac/
 3.フォークしたbookshelf-webクローン  
 4.Docker起動  
 ```
-docker-compose run web rails new . --force --database=postgresql  
+プロジェクトのルートディレクトリに移動 
 docker-compose up -d  
-docker-compose run web rake db:create  
+docker-compose run --rm web rake db:create db:migrate 
 ```
 
 ## チケット  
