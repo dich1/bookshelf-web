@@ -29,21 +29,21 @@ set :rbenv_roles, :all
 set :log_level, :debug
 
 # Default value for :pty is false
-# set :pty, true
+set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 
 # Default value for default_env is {}
-set :default_env, { 
-  path: "/opt/ruby/bin:$PATH",
-  AWS_ACCESS_KEY_ID: ENV['AWS_ACCESS_KEY_ID'],
-  AWS_SECRET_ACCESS_KEY: ENV['AWS_SECRET_ACCESS_KEY'],
-  S3_BUCKET_NAME: ENV['S3_BUCKET_NAME']
-}
+# set :default_env, { 
+#   path: "/opt/ruby/bin:$PATH",
+#   AWS_ACCESS_KEY_ID: ENV['AWS_ACCESS_KEY_ID'],
+#   AWS_SECRET_ACCESS_KEY: ENV['AWS_SECRET_ACCESS_KEY'],
+#   S3_BUCKET_NAME: ENV['S3_BUCKET_NAME']
+# }
 
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
@@ -72,17 +72,62 @@ namespace :deploy do
     invoke 'puma:start'
   end
 
-  desc 'Upload database.yml'
-  task :upload do
-    on roles(:app) do |host|
-      if test "[ ! -d #{shared_path}/config ]"
-        execute "mkdir -p #{shared_path}/config"
+  # desc 'Upload database.yml'
+  # task :upload do
+    # on roles(:app) do |host|
+      # if test "[ ! -d #{shared_path}/config ]"
+      #   execute "mkdir -p #{shared_path}/config"
+      # end
+      # upload!('config/database.yml', "#{shared_path}/config/database.yml")
+    # end
+  # end
+
+  desc 'rollback for docker'
+  task :rollback_docker do
+    on roles(:app) do
+      within release_path do
+        execute "cd /var/www/bookshelf-web/current && docker-compose down"
+        execute "sudo chown -R ec2-user:ec2-user /var/www/bookshelf-web/releases"
+        execute "sudo service docker restart"
       end
-      upload!('config/database.yml', "#{shared_path}/config/database.yml")
     end
   end
 
-  before :starting, 'deploy:upload'
+  desc 'preparation for docker'
+  task :prepare_docker do
+    on roles(:app) do
+      within release_path do
+        execute "sudo chown -R ec2-user:ec2-user /var/www/bookshelf-web/releases"
+        # TODO git管理対象にする
+        upload!('.env', "/var/www/bookshelf-web/current/.env")
+
+        execute "cd /var/www/bookshelf-web/current && docker-compose down"
+        execute "cd /var/www/bookshelf-web/current && docker system prune -f"
+        # execute "cd /var/www/bookshelf-web/current && docker rmi -f `docker images -aq`"
+        execute "sudo service docker restart"
+      end
+    end
+  end
+
+  desc 'start for docker'
+  task :start_docker do
+    on roles(:app) do
+      within release_path do
+        # TODO git管理対象にする
+        upload!('config/database.yml', "/var/www/bookshelf-web/current/config/database.yml")
+        upload!('.env', "/var/www/bookshelf-web/current/.env")
+
+        execute "cd /var/www/bookshelf-web/current && docker-compose build"
+        execute "cd /var/www/bookshelf-web/current && docker-compose up -d"
+        execute "cd /var/www/bookshelf-web/current && docker-compose run --rm web rake db:create db:migrate"
+      end
+    end
+  end
+
+  before :finishing_rollback, 'deploy:rollback_docker'
+  # before :starting, 'deploy:upload'
+  after :finishing, 'deploy:prepare_docker'
   after :finishing, 'deploy:cleanup'
+  after :finished, 'deploy:start_docker'
 
 end
