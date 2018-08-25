@@ -93,7 +93,7 @@ namespace :deploy do
     end
   end
 
-  desc 'preparation for docker'
+  desc 'prepare for docker'
   task :prepare_docker do
     on roles(:app) do
       within release_path do
