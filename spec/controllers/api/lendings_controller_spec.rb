@@ -23,10 +23,10 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe Api::HistoriesController, type: :controller do
+RSpec.describe Api::LendingsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Api::History. As you add validations to Api::History, be sure to
+  # Api::Lending. As you add validations to Api::Lending, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -43,7 +43,7 @@ RSpec.describe Api::HistoriesController, type: :controller do
 
   describe "GET #index" do
     it "returns a success response" do
-      history = Api::History.create! valid_attributes
+      lending = Api::Lending.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -51,8 +51,8 @@ RSpec.describe Api::HistoriesController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      history = Api::History.create! valid_attributes
-      get :show, params: {id: history.to_param}, session: valid_session
+      lending = Api::Lending.create! valid_attributes
+      get :show, params: {id: lending.to_param}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -66,29 +66,29 @@ RSpec.describe Api::HistoriesController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      history = Api::History.create! valid_attributes
-      get :edit, params: {id: history.to_param}, session: valid_session
+      lending = Api::Lending.create! valid_attributes
+      get :edit, params: {id: lending.to_param}, session: valid_session
       expect(response).to be_success
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Api::History" do
+      it "creates a new Api::Lending" do
         expect {
-          post :create, params: {api_history: valid_attributes}, session: valid_session
-        }.to change(Api::History, :count).by(1)
+          post :create, params: {api_lending: valid_attributes}, session: valid_session
+        }.to change(Api::Lending, :count).by(1)
       end
 
-      it "redirects to the created api_history" do
-        post :create, params: {api_history: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Api::History.last)
+      it "redirects to the created api_lending" do
+        post :create, params: {api_lending: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(Api::Lending.last)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {api_history: invalid_attributes}, session: valid_session
+        post :create, params: {api_lending: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
@@ -100,41 +100,41 @@ RSpec.describe Api::HistoriesController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested api_history" do
-        history = Api::History.create! valid_attributes
-        put :update, params: {id: history.to_param, api_history: new_attributes}, session: valid_session
-        history.reload
+      it "updates the requested api_lending" do
+        lending = Api::Lending.create! valid_attributes
+        put :update, params: {id: lending.to_param, api_lending: new_attributes}, session: valid_session
+        lending.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the api_history" do
-        history = Api::History.create! valid_attributes
-        put :update, params: {id: history.to_param, api_history: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(history)
+      it "redirects to the api_lending" do
+        lending = Api::Lending.create! valid_attributes
+        put :update, params: {id: lending.to_param, api_lending: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(lending)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        history = Api::History.create! valid_attributes
-        put :update, params: {id: history.to_param, api_history: invalid_attributes}, session: valid_session
+        lending = Api::Lending.create! valid_attributes
+        put :update, params: {id: lending.to_param, api_lending: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested api_history" do
-      history = Api::History.create! valid_attributes
+    it "destroys the requested api_lending" do
+      lending = Api::Lending.create! valid_attributes
       expect {
-        delete :destroy, params: {id: history.to_param}, session: valid_session
-      }.to change(Api::History, :count).by(-1)
+        delete :destroy, params: {id: lending.to_param}, session: valid_session
+      }.to change(Api::Lending, :count).by(-1)
     end
 
-    it "redirects to the api_histories list" do
-      history = Api::History.create! valid_attributes
-      delete :destroy, params: {id: history.to_param}, session: valid_session
-      expect(response).to redirect_to(api_histories_url)
+    it "redirects to the api_lendings list" do
+      lending = Api::Lending.create! valid_attributes
+      delete :destroy, params: {id: lending.to_param}, session: valid_session
+      expect(response).to redirect_to(api_lendings_url)
     end
   end
 

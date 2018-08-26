@@ -1,7 +1,7 @@
 class Book < ApplicationRecord
   has_many :genres
-  has_many :histories
-  accepts_nested_attributes_for :histories
+  has_many :lendings
+  accepts_nested_attributes_for :lendings
   validates :title, presence: true
   validates :image, presence: true
   enum status: {lending: 0, safekeeping: 1}

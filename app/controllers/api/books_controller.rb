@@ -16,7 +16,7 @@ class Api::BooksController < ApplicationController
     render :json => @books
   end
 
-  # 本登録API。同時に借りる場合、historiesにユーザーIDと返却日を登録する
+  # 本登録API。同時に借りる場合、lendingsにユーザーIDと返却日を登録する
   #
   # POST /api/books
   def create
@@ -29,16 +29,15 @@ class Api::BooksController < ApplicationController
     end
   end
 
-  # TODO 適切なAPI名にする。
-  # 本更新API。返却情報を更新する場合、historiesの返却日予定日または返却日を更新する
+  # 本更新API。返却情報を更新する場合、lendingsの返却日予定日または返却日を更新する
   #
   # PATCH/PUT /api/books/:id
   def update
      # TODO active_model_serializersでレスポンスを設定する
     hash_book_params = book_params.to_h
-    # hash_book_params["histories_attributes"][0]["id"] = Book.lending_history_id(params[:id])
+    # hash_book_params["lendings_attributes"][0]["id"] = Book.lending_lending_id(params[:id])
     # TODO scopeにする
-    hash_book_params["histories_attributes"][0]["id"] = Book.find(params[:id]).histories.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last.id
+    hash_book_params["lendings_attributes"][0]["id"] = Book.find(params[:id]).lendings.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last.id
     # TODO 保管中だった場合の処理を追加する
     if @book.update(hash_book_params)
       head :no_content
@@ -59,11 +58,11 @@ class Api::BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
-      # @book = Book.find(params[:id]).histories.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last
+      # @book = Book.find(params[:id]).lendings.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.fetch(:book, {}).permit(:title, :image, :genre_id, histories_attributes: [:id, :book_id, :user_id, :checkout_date, :return_due_date, :return_date, :_destroy])
+      params.fetch(:book, {}).permit(:title, :image, :genre_id, lendings_attributes: [:id, :book_id, :user_id, :checkout_date, :return_due_date, :return_date, :_destroy])
     end
 end

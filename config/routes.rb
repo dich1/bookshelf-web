@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :books    , only: [:index, :create, :update, :destroy]
     resources :memos    , only: [:index, :create, :update, :destroy]
-    resources :histories, only: [:index, :create, :update, :destroy]
+    resources :lendings , only: [:index, :create, :update, :destroy]
     resources :users    , only: [:show]
   end
 end

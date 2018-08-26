@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :history do
+  factory :lending do
     book_id 1
     user_id 1
     memo "MyText"
