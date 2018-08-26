@@ -37,7 +37,7 @@ class Api::BooksController < ApplicationController
     hash_book_params = book_params.to_h
     # hash_book_params["lendings_attributes"][0]["id"] = Book.lending_lending_id(params[:id])
     # TODO scopeにする
-    hash_book_params["lendings_attributes"][0]["id"] = Book.find(params[:id]).lendings.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last.id
+    hash_book_params["lendings_attributes"][0]["id"] = Book.find(params[:id]).lendings.where.not(checkouted_on: nil, return_scheduled_on: nil).where(returned_on: nil).last.id
     # TODO 保管中だった場合の処理を追加する
     if @book.update(hash_book_params)
       head :no_content
@@ -58,11 +58,11 @@ class Api::BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
-      # @book = Book.find(params[:id]).lendings.where.not(checkout_date: nil, return_due_date: nil).where(return_date: nil).last
+      # @book = Book.find(params[:id]).lendings.where.not(checkouted_on: nil, return_scheduled_on: nil).where(returned_on: nil).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.fetch(:book, {}).permit(:title, :image, :genre_id, lendings_attributes: [:id, :book_id, :user_id, :checkout_date, :return_due_date, :return_date, :_destroy])
+      params.fetch(:book, {}).permit(:title, :image, :genre_id, lendings_attributes: [:id, :book_id, :user_id, :checkouted_on, :return_scheduled_on, :returned_on, :_destroy])
     end
 end

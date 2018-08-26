@@ -1,5 +1,5 @@
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :title, :image, :genre_id, :status, :return_due_date, :created_at, :updated_at
+  attributes :id, :title, :image, :genre_id, :status, :return_scheduled_on, :created_at, :updated_at
 
   def image
     object[:image]
@@ -17,8 +17,8 @@ class BookSerializer < ActiveModel::Serializer
     Book.statuses["safekeeping"]
   end
 
-  def return_due_date
-    object[:return_due_date] || ""
+  def return_scheduled_on
+    object[:return_scheduled_on] || ""
   end
 
   private
@@ -27,7 +27,7 @@ class BookSerializer < ActiveModel::Serializer
     # @return [Boolean] 貸出中の場合         :true 
     # @return [Boolean] それ以外の場合(保管中):false
     def is_lending(book)
-      if book.lendings.where.not(checkout_date: nil).where(return_date: nil).last.nil?
+      if book.lendings.where.not(checkouted_on: nil).where(returned_on: nil).last.nil?
         return false
       end
 
