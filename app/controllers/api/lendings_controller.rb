@@ -35,7 +35,7 @@ class Api::LendingsController < ApplicationController
   #
   # DELETE /api/lendings/:id
   def destroy
-    @lending.destroy
+    @lending.return_book
     head :no_content
   end
 
