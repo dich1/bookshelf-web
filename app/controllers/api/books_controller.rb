@@ -11,9 +11,11 @@ class Api::BooksController < ApplicationController
     page = params[:page].to_i ||= 1
 
     @books = Book.per_newest(page)
-    # TODO 総本数、貸出中本数、保管中本数のフィールドを追加する
-    
-    render :json => @books
+    # TODO 処理を切り出す。
+    total   = @books.count
+    reading = Lending.readings
+    safekeeping = total - reading
+    render :json => @books, meta: { total: total, reading: reading, safekeeping: safekeeping}
   end
 
   # 本登録API。同時に借りる場合、lendingsにユーザーIDと返却日を登録する
@@ -58,7 +60,6 @@ class Api::BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
-      # @book = Book.find(params[:id]).lendings.where.not(checkouted_on: nil, return_scheduled_on: nil).where(returned_on: nil).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
