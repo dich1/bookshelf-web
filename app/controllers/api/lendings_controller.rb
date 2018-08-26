@@ -1,17 +1,20 @@
 class Api::LendingsController < ApplicationController
+  before_action :set_book, only: [:index, :create]
   before_action :set_lending, only: [:update, :destroy]
 
-  # GET /api/lendings
+  # GET /api/books/:book_id/lendings
   def index
-    @lendings = Lending.all
+    @lendings = @book.lendings.all
+    
+    render :json => @lendings
   end
 
-  # POST /api/lendings
+  # POST /api/books/:book_id/lendings
   def create
-    @lending = Lending.new(lending_params)
+    @lending = @book.lendings.new(lending_params)
 
     if @lending.save
-      render :show, status: :created
+      head :created
     else
       render json: @lending.errors, status: :unprocessable_entity
     end
@@ -22,12 +25,14 @@ class Api::LendingsController < ApplicationController
   # PATCH/PUT /api/lendings/:id
   def update
     if @lending.update(lending_params)
-      render :show, status: :ok, location: @lending
+      head :no_content
     else
       render json: @lending.errors, status: :unprocessable_entity
     end
   end
 
+  # 貸出削除API
+  #
   # DELETE /api/lendings/:id
   def destroy
     @lending.destroy
@@ -35,6 +40,10 @@ class Api::LendingsController < ApplicationController
   end
 
   private
+    def set_book
+      @book = Book.find(params[:book_id])
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_lending
       @lending = Lending.find(params[:id])
@@ -42,6 +51,6 @@ class Api::LendingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lending_params
-      params.fetch(:lending, {})
+      params.require(:lending).permit(:book_id, :user_id, :checkouted_on, :return_scheduled_on)
     end
 end
