@@ -87,7 +87,7 @@ namespace :deploy do
     on roles(:app) do
       within release_path do
         execute "cd /var/www/bookshelf-web/current && docker-compose down"
-        execute "sudo chown -R ec2-user:ec2-user /var/www/bookshelf-web/releases"
+        execute "sudo chown -R deploy:deploy /var/www/bookshelf-web/releases"
         execute "sudo service docker restart"
       end
     end
@@ -97,7 +97,7 @@ namespace :deploy do
   task :prepare_docker do
     on roles(:app) do
       within release_path do
-        execute "sudo chown -R ec2-user:ec2-user /var/www/bookshelf-web/releases"
+        execute "sudo chown -R deploy:deploy /var/www/bookshelf-web/releases"
         # TODO git管理対象にする
         upload!('.env', "/var/www/bookshelf-web/current/.env")
 
