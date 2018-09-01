@@ -10,7 +10,5 @@ COPY . /bookshelf-web
 RUN mkdir -p tmp/sockets
 RUN mkdir -p tmp/pids
 
-ENV DISABLE_DATABASE_ENVIRONMENT_CHECK 1
-
 EXPOSE 3000
 CMD RAILS_ENV=${RAILS_ENV} bundle exec pumactl start
