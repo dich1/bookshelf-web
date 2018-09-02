@@ -28,10 +28,6 @@
     <div id="cover">
       <h1 id="cover_title">ほんだな</h1>
       <form action="">
-        <div class="book_status petition active">
-          <input type="button" name="only_petition" value="申請中" onclick="getBooks(0, null);">
-          <div id= "books_petition" class="book_count"></div>
-        </div>
         <div class="book_status reading active">
           <input type="button" name="only_reading" value="貸出中" onclick="getBooks(1, null);">
           <div id= "books_reading" class="book_count"></div>
@@ -45,7 +41,7 @@
     <div class="wrapper">
       <div id="main">
         <div id="book_list" class="clearfix">
-          <!-- 登録された書籍タイトルの数だけ出力  -->
+          <!-- 登録された書籍の数だけ出力  -->
         </div>
       </div>
     </div>
