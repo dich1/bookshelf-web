@@ -1,3 +1,7 @@
+/**
+ * 本を登録する
+ * @param {Object} button thisのイベント
+ */
 function registerBook(button) {
     var endpointName = '本登録API'
     var title = document.forms.register_book.book_title.value;
@@ -33,7 +37,12 @@ function registerBook(button) {
     });
 }
 
-// FIXME 本更新APIテスト用(本詳細画面作成時に使用)
+/**
+ * FIXME 本更新APIテスト用(本更新時に使用)
+ *
+ * 本を更新する
+ * @param {Object} button thisのイベント
+ */
 function updateBook(button) {
     var id    = 0;
     var title = '更新タイトル';

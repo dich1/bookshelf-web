@@ -10,7 +10,11 @@ var Api = (function() {
         baseUrl  = protocol + '//' + host + apiPath;
     }
 
-
+    /**
+     * 本一覧取得API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function getBooks(request) {
         return $.ajax({
             type    : 'GET',
@@ -22,6 +26,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 本数取得API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function getBooksCount(request) {
         return $.ajax({
             type    : 'GET',
@@ -32,6 +41,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 本詳細(メモ)取得API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function getBookDetail(request) {
         return $.ajax({
             type    : 'GET',
@@ -43,6 +57,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 本登録API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function registerBook(request) {
         return $.ajax({
             type       : 'POST',
@@ -56,6 +75,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 本更新API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function updateBook(request) {
         return $.ajax({
             type    : 'PUT',
@@ -67,17 +91,12 @@ var Api = (function() {
         });
     }
 
-    function updateBookPetition(request) {
-        return $.ajax({
-            type    : 'PUT',
-            url     : baseUrl + 'book/petition/',
-            dataType: 'json',
-            data    : request,
-            async   : true,
-            timeout : 10000
-        });
-    }
-
+    /**
+     * 読書中(貸出中)更新API
+     * 読書中と表現していた経緯
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function updateBookReading(request) {
         return $.ajax({
             type    : 'PUT',
@@ -89,6 +108,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 本保管中API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function updateBookSafekeeping(request) {
         return $.ajax({
             type    : 'PUT',
@@ -100,6 +124,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 返却(予定)日更新API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function updateReturnDate(request) {
         return $.ajax({
             type    : 'PUT',
@@ -111,6 +140,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 本詳細(メモ)更新API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function updateBookDetail(request) {
         return $.ajax({
             type    : 'PUT',
@@ -122,6 +156,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * 本削除API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function deleteBook(request) {
         return $.ajax({
             type    : 'DELETE',
@@ -133,6 +172,11 @@ var Api = (function() {
         });
     }
 
+    /**
+     * スラックメッセージ送信API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
     function postMessageSlack(request) {
         var accsessUrl = 'https://hooks.slack.com/services/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';
         return $.ajax({
@@ -151,7 +195,6 @@ var Api = (function() {
         getBookDetail           : getBookDetail,
         registerBook            : registerBook,
         updateBook              : updateBook,
-        updateBookPetition      : updateBookPetition,
         updateBookReading       : updateBookReading,
         updateBookSafekeeping   : updateBookSafekeeping,
         updateReturnDate        : updateReturnDate,

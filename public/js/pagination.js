@@ -1,6 +1,11 @@
 const PER_PAGE_LIMIT = 20;
 var currentPage;
 
+/**
+ * ページネーションを設定する
+ * @param {number} status  本ステータス
+ * @param {number} records レコード数
+ */
 function setPagination(status, records) {
     var pages = Math.ceil(records / PER_PAGE_LIMIT);
     $('#paging').pagination({
@@ -21,6 +26,11 @@ function setPagination(status, records) {
     }
 }
 
+/**
+ * 該当の本一覧を表示する
+ * @param {number} status 本ステータス
+ * @param {number} page   ページ数
+ */
 function showTargetBooks(status, page){
     var pageId = '#page-' + page;
     $(pageId).show();

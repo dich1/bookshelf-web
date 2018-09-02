@@ -13,6 +13,11 @@ $(document).on('focus', '.memo', function(){
     $('#book_detail').booklet('option', 'keyboard', false);
 });
 
+/**
+ * 本詳細(メモ)を取得する
+ * 本に紐づくメモを取得する。表記を修正している
+ * @param {number} id 本ID
+ */
 function getBookDetail(id) {
     var endpointName = '本詳細取得API';
     var request = {
@@ -33,6 +38,11 @@ function getBookDetail(id) {
     displayBookDetail(id, memo);
 }
 
+/**
+ * 本詳細(メモ)を表示する
+ * @param {number} id   本ID
+ * @param {string} memo メモ要素文字列
+ */
 function displayBookDetail(id, memo) {
     $('#overlay, #book_detail').fadeIn();
     var bookDetailElement = createBookDetailElement(id, memo);
@@ -43,6 +53,10 @@ function displayBookDetail(id, memo) {
     setBooklet();
 }
 
+/**
+ * 本詳細(メモ)を更新する
+ * @param {number} id   本ID
+ */
 function updateBookDetail(id) {
     var endpointName = '本詳細更新API';
 
@@ -76,6 +90,12 @@ function updateBookDetail(id) {
     });
 }
 
+/**
+ * 本詳細(メモ)要素を作成する
+ * @param  {number} id   本ID
+ * @param  {string} text メモ文字列
+ * @return {string} メモ要素文字列
+ */
 function createBookDetailElement(id, text) {
     // TODO 動的にページを増やせるようにする
     var bookDetailElement = '';
@@ -98,6 +118,9 @@ function createBookDetailElement(id, text) {
     return bookDetailElement = text;
 }
 
+/**
+ * 冊子を設定する
+ */
 function setBooklet() {
     $('#book_detail').booklet({
         name  : "BookDetail",
@@ -107,6 +130,9 @@ function setBooklet() {
     locateCenter();
 }
 
+/**
+ * 中心を見つける
+ */
 function locateCenter() {
     let w = $(window).width();
     let h = $(window).height();

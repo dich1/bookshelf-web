@@ -1,3 +1,9 @@
+/**
+ * 再試行を可能にする
+ * @param {number}   retryCount 再試行回数
+ * @param {function} func       関数
+ * @return {Promise} 非同期通信結果
+ */
 function retryable(retryCount, func) {
     let promise = Promise.reject().catch(() => func());
     for (let i = 0; i < retryCount; i++) {
@@ -7,6 +13,10 @@ function retryable(retryCount, func) {
     return promise;
 }
 
+/**
+ * 警告を表示する
+ * @param {string} message メッセージ
+ */
 function displayAlert(message) {
     var coverElement = document.getElementById('cover');
     var alertElement = document.getElementById('alert');
@@ -30,8 +40,11 @@ window.addEventListener('load', function() {
     }, 1000);
 });
 
+/**
+ * 本の数を取得する
+ */
 function getBooksCount() {
-    var endpointName = 'ステータス数取得API';
+    var endpointName = '本数取得API';
     var getBooksCount = Api.getBooksCount();
     var readingCount;
     var safekeepingCount;
@@ -46,6 +59,11 @@ function getBooksCount() {
     });
 }
 
+/**
+ * 本一覧を取得する
+ * @param {number} status 本ステータス
+ * @param {number} page   ページ
+ */
 function getBooks(status, page) {
     var endpointName = '本一覧取得API';
     var request = {};
@@ -71,6 +89,11 @@ function getBooks(status, page) {
     setPagination(status, records);
 }
 
+/**
+ * 本一覧を取得する
+ * @param  {Object} books 本一覧レコード
+ * @return {string} 本一覧HTML要素
+ */
 function createBooksElements(books) {
     var bookListElement = '';
     var imageBasePath = '//s3-ap-northeast-1.amazonaws.com/bookshelf-image/uploads/';
@@ -114,6 +137,10 @@ function createBooksElements(books) {
     return bookListElement = '<h1 id="no_books" >本ありません</h1>'
 }
 
+/**
+ * 本一覧を表示する
+ * @param {string} bookListElement 本一覧要素
+ */
 function displayBooks(bookListElement) {
     var bookList = document.getElementById('book_list');
     bookList.textContent = null;
@@ -122,24 +149,11 @@ function displayBooks(bookListElement) {
     setDatepicker();
 }
 
-function updateBookPetition(id) {
-    var endpointName = '申請中更新API'
-    var dateText = '';
-    updateReturnDate(id, dateText);
-    var request = {
-        id    : id
-    };
-    var updateBookPetition = Api.updateBookPetition(request);
-    updateBookPetition.done(function(data){
-        console.log(endpointName + '：' + updateBookPetition.status);
-        getBooks(null);
-        getBooksCount();
-        postMessageSlack(id, 0);
-    }).fail(function(data, textStatus, errorThrown) {
-        displayResponseError(endpointName, data, textStatus, errorThrown);
-    });
-}
-
+/**
+ * 本を読書中(貸出中)にする
+ * 以前読書中と表現していた経緯
+ * @param {number} id 本ID
+ */
 function updateBookReading(id) {
     var endpointName = '貸出中更新API';
     var request = {
@@ -156,6 +170,10 @@ function updateBookReading(id) {
     });    
 }
 
+/**
+ * 本を保管中にする
+ * @param {number} id 本ID
+ */
 function updateBookSafekeeping(id) {
     var endpointName = '保管中更新API';
     var request = {
@@ -176,6 +194,10 @@ function updateBookSafekeeping(id) {
     });    
 }
 
+/**
+ * 本を削除する
+ * @param {number} id 本ID
+ */
 function deleteBook(id) {
     var endpointName = '本削除API';
     var request = {
@@ -196,6 +218,11 @@ function deleteBook(id) {
     });
 }
 
+/**
+ * 返却(予定)日を更新する
+ * @param {number} id 本ID
+ * @param {string} dateText YYYY-mm-dd 
+ */
 function updateReturnDate(id, dateText){
     var endpointName = '返却日更新API';
     var returnDate = dateText;
@@ -212,7 +239,14 @@ function updateReturnDate(id, dateText){
     });
 }
 
-// FIXME railsにしたらサーバー側に実装する(内部にしかURLは公開していない)
+/**
+ * FIXME railsにしたらサーバー側に実装する(内部にしかURLは公開していない)
+ *
+ * slackにメッセージを投稿する
+ * @param {number} id 本ID
+ * @param {number} status 本ステータス
+ * @param {string} date   日付(YYYY-mm-dd)
+ */
 function postMessageSlack(id, status, date) {
     var endpointName = 'slack投稿API';
     var bookName = document.getElementById(id).children[2].innerText.replace(/\r?\n/g, "");
