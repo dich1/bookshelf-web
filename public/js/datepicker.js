@@ -1,3 +1,7 @@
+/**
+ * 現在時刻をYYYY-mm-ddで取得する
+ * @return {string} YYYY-mm-dd
+ */
 function getNowYYYYMMDD(){
     var dt = new Date();
     var y = dt.getFullYear();
@@ -8,6 +12,9 @@ function getNowYYYYMMDD(){
     return result;
 }
 
+/**
+ * Datepickerを設定する
+ */
 function setDatepicker() {
     $.datepicker.setDefaults($.datepicker.regional["ja"]);
     $.datepicker._gotoToday = function(datepickerId) {
@@ -46,6 +53,10 @@ function setDatepicker() {
     });
 }
 
+/**
+ * Datepickerを開く
+ * @param {id} 本ID
+ */
 function openDatepicker(id) {
     document.getElementById(id).children[0].children[1].children[1].click();
 }
