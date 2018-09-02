@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ruby:2.4-alpine
+    working_directory: /home/circleci/{{bookshelf-web}}
+    steps:
+      - setup_remote_docker:
+          reusable: true
+      - run:
+          name: システム依存関係のインストール
+          command: apk add --update --no-cache linux-headers git openssh-client tar gzip build-base tzdata postgresql-dev
+      - checkout
+      - restore_cache:
+          name: Bundleキャッシュの復元
+          keys:
+            - gems-{{ .Environment.CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+            - gems-{{ .Environment.CACHE_KEY }}-
+      - run:
+          name: Ruby依存関係のインストール
+          command: bundle check || bundle install --jobs=4 --retry=3
+      - save_cache:
+          name: Bundleキャッシュの保存
+          key: gems-{{ .Environment.CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - /usr/local/bundle
+      - add_ssh_keys:
+          fingerprints:
+            - {{fingerprints}}
+      - deploy:
+         name: Capistranoデプロイ
+         command:
+           bundle exec cap production deploy --trace
