@@ -9,7 +9,7 @@ jobs:
           reusable: true
       - run:
           name: システム依存関係のインストール
-          command: apk add --update --no-cache linux-headers git openssh-client tar gzip build-base tzdata postgresql-dev
+          command: apk add --update --no-cache linux-headers git sudo openssh-client tar gzip build-base tzdata postgresql-dev
       - checkout
       - restore_cache:
           name: Bundleキャッシュの復元
