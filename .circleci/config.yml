@@ -27,6 +27,14 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "8c:1d:91:8e:6f:81:97:55:ef:ac:a8:02:26:77:45:dd"
+      - run:
+          name: Start ssh-agent
+          command: |
+            ssh-agent -s > ~/.ssh_agent_conf
+            source ~/.ssh_agent_conf
+            for _k in $(ls ${HOME}/.ssh/); do
+              ssh-add ${_k} || true
+            done      
       - deploy:
          name: Capistranoデプロイ
          command:
