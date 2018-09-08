@@ -32,7 +32,8 @@ jobs:
           command: |
             ssh-agent -s > ~/.ssh_agent_conf
             source ~/.ssh_agent_conf
-            for _k in $(ls ${HOME}/.ssh/); do
+            chmod 600 ${HOME}/.ssh/id*
+            for _k in $(ls ${HOME}/.ssh/id*); do
               ssh-add ${_k} || true
             done      
       - deploy:
