@@ -57,7 +57,7 @@ server "54.64.252.121",
   ssh_options: {
     user: "deploy", # overrides user setting above
     keys: %w(/home/deploy/.ssh/id_rsa_8c1d918e6f819755efaca802267745dd),
-    forward_agent: false,
+    forward_agent: true,
     auth_methods: %w(publickey)
     # password: "please use keys"
   }
