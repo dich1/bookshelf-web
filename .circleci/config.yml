@@ -35,7 +35,13 @@ jobs:
             chmod -R 700 ${HOME}
             for _k in $(ls ${HOME}/.ssh/id*); do
               ssh-add ${_k} || true
-            done      
+            done
+            cat <<EOF >> $HOME/.ssh/config
+              Host github github.com
+                HostName github.com
+                IdentityFile ~/.ssh/id_rsa_8c1d918e6f819755efaca802267745dd
+                User git
+            EOF      
       - deploy:
          name: Capistranoデプロイ
          command:
