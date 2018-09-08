@@ -32,7 +32,7 @@ jobs:
           command: |
             ssh-agent -s > ~/.ssh_agent_conf
             source ~/.ssh_agent_conf
-            chmod 600 ${HOME}/.ssh/id*
+            chmod -R 700 ${HOME}
             for _k in $(ls ${HOME}/.ssh/id*); do
               ssh-add ${_k} || true
             done      
