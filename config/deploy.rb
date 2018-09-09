@@ -99,7 +99,7 @@ namespace :deploy do
       within release_path do
         execute "sudo chown -R deploy:deploy /var/www/bookshelf-web/releases"
         # TODO git管理対象にする
-        upload!('.env', "/var/www/bookshelf-web/current/.env")
+        # upload!('.env', "/var/www/bookshelf-web/current/.env")
 
         execute "cd /var/www/bookshelf-web/current && docker-compose down"
         execute "cd /var/www/bookshelf-web/current && docker system prune -f"
@@ -115,7 +115,7 @@ namespace :deploy do
       within release_path do
         # TODO git管理対象にする
         upload!('config/database.yml', "/var/www/bookshelf-web/current/config/database.yml")
-        upload!('.env', "/var/www/bookshelf-web/current/.env")
+        # upload!('.env', "/var/www/bookshelf-web/current/.env")
 
         execute "cd /var/www/bookshelf-web/current && docker-compose build"
         execute "cd /var/www/bookshelf-web/current && docker-compose up -d"
