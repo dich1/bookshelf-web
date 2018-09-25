@@ -28,7 +28,7 @@ jobs:
           fingerprints:
             - "8c:1d:91:8e:6f:81:97:55:ef:ac:a8:02:26:77:45:dd"
       - run:
-          name: Start ssh-agent
+          name: ssh-agent設定
           command: |
             ssh-agent -s > ~/.ssh_agent_conf
             source ~/.ssh_agent_conf
