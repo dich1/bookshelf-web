@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :genre do
-    name "MyString"
+    name "TEST NAME"
   end
 end
