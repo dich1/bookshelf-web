@@ -52,6 +52,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_bot_rails'
+  gem 'database_cleaner'
   gem 'rails-erd'
   gem 'schemadoc'
   gem 'yard'
@@ -60,7 +61,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'database_cleaner'
 end
 
 group :development do
