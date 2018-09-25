@@ -30,7 +30,7 @@
 /public/uploads
 
 # gem dotenv-rails
-.env
+#.env
 
 # mac finder
 .DS_Store
@@ -54,7 +54,7 @@ bookshelf-classd.png
 .ruby-version
 
 # Ignore DB setting
-config/database.yml
+#config/database.yml
 
 # Ignore 
 .rspec
