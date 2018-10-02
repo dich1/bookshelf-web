@@ -9,7 +9,7 @@ jobs:
           reusable: true
       - run:
           name: システム依存関係のインストール
-          command: apk add --update --no-cache linux-headers git sudo openssh-client tar gzip build-base tzdata postgresql-dev nodejs
+          command: apk add --update --no-cache linux-headers git sudo openssh-client tar gzip build-base tzdata postgresql-dev alpine-sdk python python-dev 'py2-pip==9.0.1-r1' && pip install 'docker-compose==1.12.0'
       - checkout
       - restore_cache:
           name: Bundleキャッシュの復元
