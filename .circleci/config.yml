@@ -3,13 +3,13 @@ jobs:
   build:
     docker:
       - image: ruby:2.4-alpine
-    working_directory: ~/repo
+    working_directory: /var/www
     steps:
       - setup_remote_docker:
           reusable: true
       - run:
           name: システム依存関係のインストール
-          command: apk add --update --no-cache linux-headers git sudo openssh-client tar gzip build-base tzdata postgresql-dev alpine-sdk python python-dev 'py2-pip==9.0.1-r1' && pip install 'docker-compose==1.12.0'
+          command: apk add --update --no-cache linux-headers docker git sudo openssh-client tar gzip build-base tzdata postgresql-dev alpine-sdk python python-dev 'py2-pip==9.0.1-r1' && pip install 'docker-compose==1.12.0'
       - checkout
       - restore_cache:
           name: Bundleキャッシュの復元
@@ -25,8 +25,11 @@ jobs:
           paths:
             - /usr/local/bundle
       - run:
+          name: テスト実行環境の作成
+          command: mkdir -p /var/db/data && docker volume create --name=tmp-data --name=public-data && docker-compose up -d web
+      - run:
           name: Rspecの実行
-          command: docker-compose up -d web && docker-compose run --rm web rspec
+          command: docker-compose run --rm web rspec
       - add_ssh_keys:
           fingerprints:
             - "8c:1d:91:8e:6f:81:97:55:ef:ac:a8:02:26:77:45:dd"
