@@ -27,10 +27,6 @@ class BookSerializer < ActiveModel::Serializer
     # @return [Boolean] 貸出中の場合         :true 
     # @return [Boolean] それ以外の場合(保管中):false
     def is_lending(book)
-      if book.lendings.where.not(checkouted_on: nil).where(returned_on: nil).last.nil?
-        return false
-      end
-
-      return true
+      return book.lendings.where.not(checkouted_on: nil).where(returned_on: nil).last.nil?
     end
 end
