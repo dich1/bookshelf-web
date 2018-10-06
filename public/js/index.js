@@ -99,21 +99,21 @@ function createBooksElements(books) {
     var imageBasePath = '//s3-ap-northeast-1.amazonaws.com/bookshelf-image/uploads/';
     if (books.length > 0) {
         books.forEach(function (book) {
-            var id          = book.id;
-            var title       = book.title;
-            var image       = imageBasePath + book.image;
-            var status      = book.status;
-            var return_date = (status !== 1)     ? ''                   :
-                              (book.return_date) ? book.return_date     : '返却日未定';
-            var reading     = (status === 1)     ? 'reading active'     : 'reading';
-            var safekeeping = (status === 2)     ? 'safekeeping active' : 'safekeeping';
+            var id                  = book.id;
+            var title               = book.title;
+            var image               = imageBasePath + book.image;
+            var status              = book.status;
+            var return_scheduled_on = (status !== 0)             ? ''                           :
+                                      (book.return_scheduled_on) ? book.return_scheduled_on     : '返却日未定';
+            var reading     = (status === 0)     ? 'reading active'     : 'reading';
+            var safekeeping = (status === 1)     ? 'safekeeping active' : 'safekeeping';
 
-            var datepickerElement = (status === 1) ? '<div class="set_datepicker_reading">' : '<div class="set_datepicker">';
+            var datepickerElement = (status === 0) ? '<div class="set_datepicker_reading">' : '<div class="set_datepicker">';
             var bookItemElement = '<div id="' + id + '" class="book_item">'
                                 + '<form class="form_datepicker" name="update_return_date" action="">'
                                 + '<small class="return_date_title">返却予定日</small>'
                                 + datepickerElement
-                                + '<input class="datepicker" type="text" name="book_return_date" value="' + return_date + '" readonly="readonly">' 
+                                + '<input class="datepicker" type="text" name="book_return_date" value="' + return_scheduled_on + '" readonly="readonly">'
                                 + '</div>'
                                 + '</form>' 
                                 + '<div class="book_image"><img src="' + image + '" alt=""></div>'
