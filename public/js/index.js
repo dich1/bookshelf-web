@@ -103,12 +103,12 @@ function createBooksElements(books) {
             var title               = book.title;
             var image               = imageBasePath + book.image;
             var status              = book.status;
-            var return_scheduled_on = (status !== 0)             ? ''                           :
+            var return_scheduled_on = (status !== 1)             ? ''                           :
                                       (book.return_scheduled_on) ? book.return_scheduled_on     : '返却日未定';
-            var reading     = (status === 0)     ? 'reading active'     : 'reading';
-            var safekeeping = (status === 1)     ? 'safekeeping active' : 'safekeeping';
+            var reading     = (status === 1)     ? 'reading active'     : 'reading';
+            var safekeeping = (status === 0)     ? 'safekeeping active' : 'safekeeping';
 
-            var datepickerElement = (status === 0) ? '<div class="set_datepicker_reading">' : '<div class="set_datepicker">';
+            var datepickerElement = (status === 1) ? '<div class="set_datepicker_reading">' : '<div class="set_datepicker">';
             var bookItemElement = '<div id="' + id + '" class="book_item">'
                                 + '<form class="form_datepicker" name="update_return_date" action="">'
                                 + '<small class="return_date_title">返却予定日</small>'
@@ -120,7 +120,7 @@ function createBooksElements(books) {
                                 + '<div class="book_detail"><div class="book_title">' + title + '</div>'
                                 + '<form name="update_status" action="">' 
                                 + '<div class="book_status ' + reading + '"><input type="button" name="book_reading" value="貸出中" onclick="openDatepicker(' + id + ');"></div>'
-                                + '<div class="book_status ' + safekeeping + '"><input type="button" name="book_safekeeping" value="保管中" onclick="updateBookSafekeeping(' + id + ');updateReturnDate(' + id + ', &#39;&#39;)"></div>'
+                                + '<div class="book_status ' + safekeeping + '"><input type="button" name="book_safekeeping" value="保管中" onclick="updateBookSafekeeping(' + id + ');"></div>'
                                 + '</form>'
                                 + '<form name="delete_book" action="">'
                                 + '<div class="book_delete">'
@@ -180,8 +180,10 @@ function updateBookReading(id, dateText) {
  */
 function updateBookSafekeeping(id) {
     var endpointName = '保管中更新API';
-    var request = {
-        id    : id
+    var request = new Object;
+    request.lending = {
+        book_id: id,
+        user_id: 1
     };
     var updateBookSafekeeping = Api.updateBookSafekeeping(request);
     var dateText = getNowYYYYMMDD();
@@ -190,8 +192,6 @@ function updateBookSafekeeping(id) {
         console.log(endpointName + '：' + updateBookSafekeeping.status);
         getBooks(null);
         getBooksCount();
-        var dateNoneText = '';
-        updateReturnDate(id, dateNoneText);
         displayAlert('本を返却しました。');
     }).fail(function(data, textStatus, errorThrown) {
         displayResponseError(endpointName, data, textStatus, errorThrown);
@@ -255,7 +255,7 @@ function postMessageSlack(id, status, date) {
     var endpointName = 'slack投稿API';
     var bookName = document.getElementById(id).children[2].innerText.replace(/\r?\n/g, "");
     var sendText   = (status === 1) ? '【借入】\n書籍　　　:' + bookName + '\n返却予定日:' + date : 
-                     (status === 2) ? '【返却】\n書籍　　　:' + bookName + '\n返却日　　:' + date : '';
+                     (status === 0) ? '【返却】\n書籍　　　:' + bookName + '\n返却日　　:' + date : '';
     var request = {
         text      : sendText,
         username  : 'お知らせ',

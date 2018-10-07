@@ -1,5 +1,5 @@
 class Api::LendingsController < ApplicationController
-  protect_from_forgery :except => [:create]
+  protect_from_forgery :except => [:create, :destroy]
   before_action :set_book, only: [:index, :create]
   before_action :set_lending, only: [:update, :destroy]
 
@@ -47,7 +47,7 @@ class Api::LendingsController < ApplicationController
   
     # Use callbacks to share common setup or constraints between actions.
     def set_lending
-      @lending = Lending.find(params[:id])
+      @lending = Lending.where(book_id: params[:lending][:book_id]).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

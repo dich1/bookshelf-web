@@ -65,7 +65,7 @@ var Api = (function() {
     function registerBook(request) {
         return $.ajax({
             type       : 'POST',
-            url        : baseUrl + 'book/',
+            url        : baseUrl + 'books/',
             dataType   : 'json',
             data       : request,
             async      : false,
@@ -115,8 +115,8 @@ var Api = (function() {
      */
     function updateBookSafekeeping(request) {
         return $.ajax({
-            type    : 'PUT',
-            url     : baseUrl + 'book/safekeeping/',
+            type    : 'DELETE',
+            url     : baseUrl + 'lendings/' + request.lending.book_id,
             dataType: 'json',
             data    : request,
             async   : true,
@@ -131,8 +131,8 @@ var Api = (function() {
      */
     function updateReturnDate(request) {
         return $.ajax({
-            type    : 'PUT',
-            url     : baseUrl + 'book/return-date/',
+            type    : 'PATCH',
+            url     : baseUrl + 'book' + request.id + '/lendings/',
             dataType: 'json',
             data    : request,
             async   : false,
