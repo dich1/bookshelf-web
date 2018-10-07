@@ -152,12 +152,16 @@ function displayBooks(bookListElement) {
 /**
  * 本を読書中(貸出中)にする
  * 以前読書中と表現していた経緯
- * @param {number} id 本ID
+ * @param {number} id   本ID
+ * @param {string} date 日付(YYYY-mm-dd)
  */
-function updateBookReading(id) {
+function updateBookReading(id, dateText) {
     var endpointName = '貸出中更新API';
-    var request = {
-        id    : id
+    var request = new Object;
+    request.lending = {
+        book_id            : id,
+        user_id            : 1,
+        return_scheduled_on: dateText
     };
     var updateBookReading = Api.updateBookReading(request);
     updateBookReading.done(function(data){

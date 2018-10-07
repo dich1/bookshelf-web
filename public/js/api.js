@@ -99,8 +99,8 @@ var Api = (function() {
      */
     function updateBookReading(request) {
         return $.ajax({
-            type    : 'PUT',
-            url     : baseUrl + 'book/reading/',
+            type    : 'POST',
+            url     : baseUrl + 'books/' + request.lending.book_id + '/lendings/',
             dataType: 'json',
             data    : request,
             async   : true,

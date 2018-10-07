@@ -25,7 +25,6 @@ function setDatepicker() {
         var id = inst.input[0].parentElement.parentElement.parentElement.id;
         postMessageSlack(id, 1, dateText);
         updateReturnDate(id, dateText);
-        updateBookReading(id);
         this._hideDatepicker();
     }
     $(".datepicker").datepicker({
@@ -39,7 +38,7 @@ function setDatepicker() {
             var id = event.input[0].parentElement.parentElement.parentElement.id
             if (dateText !== '') {
                 postMessageSlack(id, 1, dateText);
-                updateBookReading(id);
+                updateBookReading(id, dateText);
             }
             updateReturnDate(id, dateText);
         },
