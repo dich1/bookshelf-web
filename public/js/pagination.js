@@ -4,10 +4,10 @@ var currentPage;
 /**
  * ページネーションを設定する
  * @param {number} status  本ステータス
- * @param {number} records レコード数
+ * @param {number} total 本総数
  */
-function setPagination(status, records) {
-    var pages = Math.ceil(records / PER_PAGE_LIMIT);
+function setPagination(status, total) {
+    var pages = Math.ceil(total / PER_PAGE_LIMIT);
     $('#paging').pagination({
         items      : pages,
         itemOnPage : PER_PAGE_LIMIT,
@@ -19,7 +19,7 @@ function setPagination(status, records) {
             showTargetBooks(status, page);
         }
     });
-    if (records > PER_PAGE_LIMIT) {
+    if (total > PER_PAGE_LIMIT) {
         $('#paging').show();
     } else {
         $('#paging').hide();

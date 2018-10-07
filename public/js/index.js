@@ -33,7 +33,6 @@ window.addEventListener('load', function() {
     setTimeout(function(){
         retryable(3, () => { 
             getBooks(null, null);
-            getBooksCount();
         }).catch(err => {
             alert('API通信失敗。通信状態の確認、またはしばらく経ってからアクセスしてください');
          });
@@ -42,21 +41,12 @@ window.addEventListener('load', function() {
 
 /**
  * 本の数を取得する
+ * @param {number} readings     読書中(貸出中)
+ * @param {number} safekeepings 保管中
  */
-function getBooksCount() {
-    var endpointName = '本数取得API';
-    var getBooksCount = Api.getBooksCount();
-    var readingCount;
-    var safekeepingCount;
-    getBooksCount.done(function(data){
-        console.log(endpointName + '：' + getBooksCount.status);
-        readingCount     = data.reading;
-        safekeepingCount = data.safekeeping;
-        document.getElementById('books_reading').textContent = readingCount;
-        document.getElementById('books_safekeeping').textContent = safekeepingCount;
-    }).fail(function(data, textStatus, errorThrown) {
-        displayResponseError(endpointName, data, textStatus, errorThrown);
-    });
+function setBooksCount(readings, safekeepings) {
+    document.getElementById('books_reading').textContent = readings;
+    document.getElementById('books_safekeeping').textContent = safekeepings;
 }
 
 /**
@@ -75,10 +65,12 @@ function getBooks(status, page) {
     }
     var getBooks = Api.getBooks(request);
     var books;
+    var total;
     getBooks.done(function(data){
         console.log(endpointName +  '：' + getBooks.status);
-        books   = data.books;
-        records = data.records;
+        books = data.books;
+        total = data.total;
+        setBooksCount(data.readings, data.safekeepings)
     }).fail(function(data, textStatus, errorThrown) {
         displayResponseError(endpointName, data, textStatus, errorThrown);
     });
@@ -86,7 +78,7 @@ function getBooks(status, page) {
     
     var bookListElement = createBooksElements(books);
     displayBooks(bookListElement);
-    setPagination(status, records);
+    setPagination(status, total);
 }
 
 /**
@@ -167,7 +159,6 @@ function updateBookReading(id, dateText) {
     updateBookReading.done(function(data){
         console.log(endpointName + '：' + updateBookReading.status);
         getBooks(null);
-        getBooksCount();
         displayAlert('本を借りました。');
     }).fail(function(data, textStatus, errorThrown) {
         displayResponseError(endpointName, data, textStatus, errorThrown);
@@ -191,7 +182,6 @@ function updateBookSafekeeping(id) {
     updateBookSafekeeping.done(function(data){
         console.log(endpointName + '：' + updateBookSafekeeping.status);
         getBooks(null);
-        getBooksCount();
         displayAlert('本を返却しました。');
     }).fail(function(data, textStatus, errorThrown) {
         displayResponseError(endpointName, data, textStatus, errorThrown);
@@ -216,7 +206,6 @@ function deleteBook(id) {
         // bookItem = document.getElementById(id);
         // bookItem.parentNode.removeChild(bookItem);
         getBooks(null);
-        getBooksCount();
     }).fail(function(data, textStatus, errorThrown) {
         displayResponseError(endpointName, data, textStatus, errorThrown);
     });

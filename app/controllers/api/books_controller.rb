@@ -13,9 +13,9 @@ class Api::BooksController < ApplicationController
     @books = Book.per_newest(page)
     # TODO 処理を切り出す。
     total   = @books.count
-    reading = Lending.readings
-    safekeeping = total - reading
-    render :json => @books, meta: { total: total, reading: reading, safekeeping: safekeeping}
+    readings = Lending.readings
+    safekeepings = total - readings
+    render :json => @books, meta: { total: total, readings: readings, safekeepings: safekeepings}
   end
 
   # 本登録API。同時に借りる場合、lendingsにユーザーIDと返却日を登録する

@@ -27,21 +27,6 @@ var Api = (function() {
     }
 
     /**
-     * 本数取得API
-     * @param  {Object} request リクエストパラメータ
-     * @return {Object} レスポンスオブジェクト
-     */
-    function getBooksCount(request) {
-        return $.ajax({
-            type    : 'GET',
-            url     : baseUrl + 'books/count/',
-            dataType: 'json',
-            async   : true,
-            timeout : 10000
-        });
-    }
-
-    /**
      * 本詳細(メモ)取得API
      * @param  {Object} request リクエストパラメータ
      * @return {Object} レスポンスオブジェクト
@@ -191,7 +176,6 @@ var Api = (function() {
 
     return {
         getBooks                : getBooks,
-        getBooksCount           : getBooksCount,
         getBookDetail           : getBookDetail,
         registerBook            : registerBook,
         updateBook              : updateBook,
