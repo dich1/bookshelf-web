@@ -1,4 +1,5 @@
 class Api::LendingsController < ApplicationController
+  protect_from_forgery :except => [:create]
   before_action :set_book, only: [:index, :create]
   before_action :set_lending, only: [:update, :destroy]
 
