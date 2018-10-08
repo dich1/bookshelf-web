@@ -178,7 +178,8 @@ function updateBookSafekeeping(id) {
     };
     var updateBookSafekeeping = Api.updateBookSafekeeping(request);
     var dateText = getNowYYYYMMDD();
-    postMessageSlack(id, 2, dateText);
+    var sendText = createSafekeepingSendText(id, dateText);
+    postMessageSlack(id, sendText, dateText);
     updateBookSafekeeping.done(function(data){
         console.log(endpointName + '：' + updateBookSafekeeping.status);
         getBooks(null);
@@ -219,9 +220,11 @@ function deleteBook(id) {
 function updateReturnDate(id, dateText){
     var endpointName = '返却日更新API';
     var returnDate = dateText;
-    var request = {
-        id        : id,
-        returnDate: returnDate
+    var request = new Object;
+    request.lending = {
+        book_id            : id,
+        user_id            : 1,
+        return_scheduled_on: returnDate
     };
     var updateReturnDate = Api.updateReturnDate(request);
     updateReturnDate.done(function(data){
@@ -237,14 +240,11 @@ function updateReturnDate(id, dateText){
  *
  * slackにメッセージを投稿する
  * @param {number} id 本ID
- * @param {number} status 本ステータス
+ * @param {number} sendText 送信文言
  * @param {string} date   日付(YYYY-mm-dd)
  */
-function postMessageSlack(id, status, date) {
+function postMessageSlack(id, sendText, date) {
     var endpointName = 'slack投稿API';
-    var bookName = document.getElementById(id).children[2].innerText.replace(/\r?\n/g, "");
-    var sendText   = (status === 1) ? '【借入】\n書籍　　　:' + bookName + '\n返却予定日:' + date : 
-                     (status === 0) ? '【返却】\n書籍　　　:' + bookName + '\n返却日　　:' + date : '';
     var request = {
         text      : sendText,
         username  : 'お知らせ',
@@ -259,4 +259,34 @@ function postMessageSlack(id, status, date) {
         // TODO 送信は成功するがエラーで返ってしまう
         // displayResponseError(endpointName, data, textStatus, errorThrown);
     });
+}
+
+/**
+ * 本の名前を取得する
+ * @param {Number} id 本ID
+ * @param {String} 本の名前
+ */
+function getBookName(id) {
+    return document.getElementById(id).children[2].innerText.replace(/\r?\n/g, "");
+}
+
+/**
+ * 読書中(貸出中)用送信文言を作成する
+ * @param {Number} id 本ID
+ * @param {String} statusText ステータス文言
+ * @param {String} date 日付
+ */
+function createReadingSendText(id, statusText, date) {
+    var bookName = getBookName(id);
+    return '【' + statusText + '】\n書籍　　　:' + bookName + '\n返却予定日:' + date;
+}
+
+/**
+ * 保管中用送信文言を作成する
+ * @param {Number} id 本ID
+ * @param {String} date 日付
+ */
+function createSafekeepingSendText(id, date) {
+    var bookName = getBookName(id);
+    return '【返却】\n書籍　　　:' + bookName + '\n返却日　　:' + date;
 }

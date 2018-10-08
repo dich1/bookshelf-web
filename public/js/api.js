@@ -117,7 +117,7 @@ var Api = (function() {
     function updateReturnDate(request) {
         return $.ajax({
             type    : 'PATCH',
-            url     : baseUrl + 'book' + request.id + '/lendings/',
+            url     : baseUrl + 'lendings/' + request.lending.book_id,
             dataType: 'json',
             data    : request,
             async   : false,
