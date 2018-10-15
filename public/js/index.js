@@ -88,7 +88,8 @@ function getBooks(status, page) {
  */
 function createBooksElements(books) {
     var bookListElement = '';
-    var imageBasePath = '//s3-ap-northeast-1.amazonaws.com/bookshelf-image/uploads/';
+    var environment = (location.hostname.match(/^bookshelf.tech$/)) ? 'production' : 'development';
+    var imageBasePath = '//s3-ap-northeast-1.amazonaws.com/bookshelf-image/uploads/' + environment + '/';
     if (books.length > 0) {
         books.forEach(function (book) {
             var id                  = book.id;
