@@ -26,7 +26,7 @@ class Api::BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      head :created
+      render json: {}, status: :created
     else
       render json: @book.errors, status: :unprocessable_entity 
     end
