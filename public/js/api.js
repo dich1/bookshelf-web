@@ -149,7 +149,7 @@ var Api = (function() {
     function deleteBook(request) {
         return $.ajax({
             type    : 'DELETE',
-            url     : baseUrl + 'book/',
+            url     : baseUrl + 'books/' + request.book.id,
             dataType: 'json',
             data    : request,
             async   : true,

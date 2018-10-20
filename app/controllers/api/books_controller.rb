@@ -2,7 +2,7 @@
 #
 # 返却値がある場合、JSON形式で返す
 class Api::BooksController < ApplicationController
-  protect_from_forgery :except => [:create]
+  protect_from_forgery :except => [:create, :destroy]
   before_action :set_book, only: [:update, :destroy]
 
   # 本一覧取得API

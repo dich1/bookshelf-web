@@ -196,7 +196,8 @@ function updateBookSafekeeping(id) {
  */
 function deleteBook(id) {
     var endpointName = '本削除API';
-    var request = {
+    var request = new Object;
+    request.book = {
         id    : id
     };
     if (!confirm('削除してもよろしいですか ?')) {
