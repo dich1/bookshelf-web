@@ -10,15 +10,9 @@ class Api::BooksController < ApplicationController
   # GET /api/books
   def index
     page = params[:page].to_i ||= 1
-    q = params[:q].to_s ||= ""
-
-    # TODO キーワードがある時だけkeyword検索をする
-    @books = Book.keyword(q).per_newest(page)
-    # TODO 処理を切り出す。
-    total   = @books.count
-    readings = Lending.readings
-    safekeepings = total - readings
-    render :json => @books, meta: { total: total, readings: readings, safekeepings: safekeepings}
+    @books = params[:q] ? Book.keyword(params[:q]).per_newest(page) : Book.per_newest(page)
+    set_counts
+    render :json => @books, meta: @counts
   end
 
   # 本登録API。同時に借りる場合、lendingsにユーザーIDと返却日を登録する
@@ -63,6 +57,13 @@ class Api::BooksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
+    end
+
+    def set_counts
+      total = @books.count
+      readings = Lending.readings.count
+      safekeepings = total - readings
+      @counts = { total: @books.count, readings: readings, safekeepings: safekeepings}
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
