@@ -8,4 +8,11 @@ class Book < ApplicationRecord
   mount_uploader :image, ImageUploader
   scope :per_newest, -> (number){page(number).per(PER).order("updated_at DESC")}
   scope :keyword, -> (keyword){ransack(title_cont: keyword).result}
+
+  class << self
+    def books(params)
+      page = params[:page].to_i ||= 1
+      params[:q] ? keyword(params[:q]).per_newest(page) : per_newest(page)
+    end
+  end
 end

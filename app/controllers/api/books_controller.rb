@@ -9,8 +9,7 @@ class Api::BooksController < ApplicationController
   # 
   # GET /api/books
   def index
-    page = params[:page].to_i ||= 1
-    @books = params[:q] ? Book.keyword(params[:q]).per_newest(page) : Book.per_newest(page)
+    @books = Book.books(params)
     set_counts
     render :json => @books, meta: @counts
   end
