@@ -60,9 +60,9 @@ class Api::BooksController < ApplicationController
 
     def set_counts
       total = @books.count
-      readings = Lending.readings.count
-      safekeepings = total - readings
-      @counts = { total: @books.count, readings: readings, safekeepings: safekeepings}
+      rendings = Lending.lendings.count
+      safekeepings = total - lendings
+      @counts = { total: @books.count, readings: rendings, safekeepings: safekeepings}
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
