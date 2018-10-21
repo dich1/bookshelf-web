@@ -1,7 +1,7 @@
 /**
  * 再試行を可能にする
- * @param {number}   retryCount 再試行回数
- * @param {function} func       関数
+ * @param  {number}   retryCount 再試行回数
+ * @param  {function} func       関数
  * @return {Promise} 非同期通信結果
  */
 function retryable(retryCount, func) {
@@ -32,11 +32,20 @@ function displayAlert(message) {
 window.addEventListener('load', function() {
     setTimeout(function(){
         retryable(3, () => { 
-            getBooks(null, null);
+            getBooks(null, null, null);
         }).catch(err => {
             alert('API通信失敗。通信状態の確認、またはしばらく経ってからアクセスしてください');
          });
     }, 1000);
+});
+
+$(document).ready(function() {
+    $("#form_book_title").keyup(function() {
+        var keyword = $(this).val();
+        setTimeout(function(){
+            getBooks(null, 1, keyword);
+        }, 1000);
+    });
 });
 
 /**
@@ -51,10 +60,11 @@ function setBooksCount(readings, safekeepings) {
 
 /**
  * 本一覧を取得する
- * @param {number} status 本ステータス
- * @param {number} page   ページ
+ * @param {number} status  本ステータス
+ * @param {number} page    ページ
+ * @param {string} keyword 検索文字列
  */
-function getBooks(status, page) {
+function getBooks(status, page, keyword) {
     var endpointName = '本一覧取得API';
     var request = {};
     if (status !== null) {
@@ -62,6 +72,9 @@ function getBooks(status, page) {
     }
     if (page !== null) {
         request['page']   = page;
+    }
+    if (keyword !== null) {
+        request['q']   = keyword;
     }
     var getBooks = Api.getBooks(request);
     var books;
@@ -78,7 +91,7 @@ function getBooks(status, page) {
     
     var bookListElement = createBooksElements(books);
     displayBooks(bookListElement);
-    setPagination(status, total);
+    setPagination(status, total, keyword);
 }
 
 /**

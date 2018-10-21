@@ -10,8 +10,10 @@ class Api::BooksController < ApplicationController
   # GET /api/books
   def index
     page = params[:page].to_i ||= 1
+    q = params[:q].to_s ||= ""
 
-    @books = Book.per_newest(page)
+    # TODO キーワードがある時だけkeyword検索をする
+    @books = Book.keyword(q).per_newest(page)
     # TODO 処理を切り出す。
     total   = @books.count
     readings = Lending.readings

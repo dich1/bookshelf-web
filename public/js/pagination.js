@@ -4,9 +4,10 @@ var currentPage;
 /**
  * ページネーションを設定する
  * @param {number} status  本ステータス
- * @param {number} total 本総数
+ * @param {number} total   本総数
+ * @param {string} keyword 検索文字列
  */
-function setPagination(status, total) {
+function setPagination(status, total, keyword) {
     var pages = Math.ceil(total / PER_PAGE_LIMIT);
     $('#paging').pagination({
         items      : pages,
@@ -16,7 +17,7 @@ function setPagination(status, total) {
         prevText   : '<span aria-hidden="true">&laquo;</span>',
         nextText   : '<span aria-hidden="true">&raquo;</span>',
         onPageClick: function (page, evt) {
-            showTargetBooks(status, page);
+            showTargetBooks(status, page, keyword);
         }
     });
     if (total > PER_PAGE_LIMIT) {
@@ -28,12 +29,13 @@ function setPagination(status, total) {
 
 /**
  * 該当の本一覧を表示する
- * @param {number} status 本ステータス
- * @param {number} page   ページ数
+ * @param {number} status  本ステータス
+ * @param {number} page    ページ数
+ * @param {string} keyword 検索文字列
  */
-function showTargetBooks(status, page){
+function showTargetBooks(status, page, keyword){
     var pageId = '#page-' + page;
     $(pageId).show();
     currentPage = page;
-    getBooks(status, page);
+    getBooks(status, page, keyword);
 }
