@@ -32,7 +32,7 @@ jobs:
           command: mkdir -p /var/db/data && docker volume create --name=tmp-data && docker volume create --name=public-data && docker-compose up -d web && docker cp /var/www/bookshelf-web bookshelfweb_web_1:/
       - run:
           name: Rspecの実行
-          command: docker-compose run --rm web rspec
+          command: docker-compose run --rm web rake db:create db:migrate && docker-compose run --rm web rspec spec/models/user_spec.rb
       - add_ssh_keys:
           fingerprints:
             - "8c:1d:91:8e:6f:81:97:55:ef:ac:a8:02:26:77:45:dd"
