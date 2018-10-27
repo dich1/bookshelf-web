@@ -3,7 +3,10 @@ jobs:
   build:
     docker:
       - image: ruby:2.4-alpine
-    working_directory: /var/www
+    branches:
+        only:
+          - master
+    working_directory: /var/www/bookshelf-web
     steps:
       - setup_remote_docker:
           reusable: true
