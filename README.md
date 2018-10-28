@@ -104,7 +104,11 @@ https://docs.docker.com/docker-for-mac/
 3.フォークしたbookshelf-webクローン  
 4.Docker起動  
 ```
-プロジェクトのルートディレクトリに移動 
+ボリュームの作成
+docker volume create --name=db-data
+docker volume create --name=tmp-data
+docker volume create --name=public-data
+プロジェクトのルートディレクトリに移動  
 docker-compose up -d  
 docker-compose run --rm web rake db:create db:migrate 
 ```
