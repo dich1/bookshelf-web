@@ -114,12 +114,13 @@ namespace :deploy do
     on roles(:app) do
       within release_path do
         # TODO git管理対象にする
-        upload!('config/database.yml', "/var/www/bookshelf-web/current/config/database.yml")
+        # upload!('config/database.yml', "/var/www/bookshelf-web/current/config/database.yml")
         # upload!('.env', "/var/www/bookshelf-web/current/.env")
 
+        execute "cd /var/www/bookshelf-web/current && sed -ie 's/development/production/' .env"
         execute "cd /var/www/bookshelf-web/current && docker-compose build"
         execute "cd /var/www/bookshelf-web/current && docker-compose up -d"
-        execute "cd /var/www/bookshelf-web/current && docker-compose run --rm web rake db:create db:migrate"
+        execute "cd /var/www/bookshelf-web/current && docker-compose run --rm web rake db:create db:migrate RAILS_ENV=production"
       end
     end
   end
