@@ -7,7 +7,7 @@ services:
     environment:
       - "POSTGRES_USER=postgres"
     volumes:
-      - /var/db/data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
   web:
     env_file: ./.env
     build: .
@@ -31,6 +31,8 @@ services:
     depends_on:
       - web
 volumes:
+  db-data:
+    external: true
   tmp-data:
     external: true
   public-data:
