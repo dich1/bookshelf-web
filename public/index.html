@@ -29,11 +29,11 @@
       <h1 id="cover_title">ほんだな</h1>
       <form action="">
         <div class="book_status reading active">
-          <input type="button" name="only_reading" value="貸出中" onclick="getBooks(0, null, null);">
+          <input type="button" name="only_reading" value="貸出中" onclick="getBooks(1, null, null);">
           <div id= "books_reading" class="book_count"></div>
         </div>
         <div class="book_status safekeeping active">
-          <input type="button" name="only_safekeeping" value="保管中" onclick="getBooks(1, null, null);">
+          <input type="button" name="only_safekeeping" value="保管中" onclick="getBooks(0, null, null);">
           <div id= "books_safekeeping" class="book_count"></div>
         </div>
       </form>
