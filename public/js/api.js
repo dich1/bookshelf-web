@@ -11,6 +11,22 @@ var Api = (function() {
     }
 
     /**
+     * ユーザー取得API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
+    function getUser(request) {
+        return $.ajax({
+            type    : 'GET',
+            url     : baseUrl + 'users/',
+            dataType: 'json',
+            data    : request,
+            async   : false,
+            timeout : 10000
+        });
+    }
+
+    /**
      * 本一覧取得API
      * @param  {Object} request リクエストパラメータ
      * @return {Object} レスポンスオブジェクト
@@ -175,6 +191,7 @@ var Api = (function() {
     }    
 
     return {
+        getUser                 : getUser,
         getBooks                : getBooks,
         getBookDetail           : getBookDetail,
         registerBook            : registerBook,

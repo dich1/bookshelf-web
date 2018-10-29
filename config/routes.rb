@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     resources :books, shallow: true do
       resources :lendings, only: [:index, :create, :update, :destroy]
     end
-    resources :users, only: [:show]
+    resources :users, only: [:index]
   end
 end

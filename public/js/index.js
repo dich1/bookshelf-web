@@ -9,7 +9,6 @@ function retryable(retryCount, func) {
     for (let i = 0; i < retryCount; i++) {
       promise = promise.catch(err => func());
     }
-
     return promise;
 }
 
@@ -30,8 +29,9 @@ function displayAlert(message) {
 }
 
 window.addEventListener('load', function() {
+    getUser();
     setTimeout(function(){
-        retryable(3, () => { 
+        retryable(3, () => {
             getBooks(null, null, null);
         }).catch(err => {
             alert('API通信失敗。通信状態の確認、またはしばらく経ってからアクセスしてください');
@@ -49,13 +49,63 @@ $(document).ready(function() {
 });
 
 /**
- * 本の数を取得する
+ * ログアウト
+ */
+function logout() {
+    var storage = sessionStorage;
+    storage.removeItem('user_id');
+    storage.removeItem('user_name');
+    storage.removeItem('user_image');
+}
+
+/**
+ * 本の数を設定する
  * @param {number} readings     読書中(貸出中)
  * @param {number} safekeepings 保管中
  */
 function setBooksCount(readings, safekeepings) {
     document.getElementById('books_reading').textContent = readings;
     document.getElementById('books_safekeeping').textContent = safekeepings;
+}
+
+/**
+ * ユーザー情報を取得する
+ * @return {Object} ユーザー情報
+ */
+function getUser() {
+    var storage = sessionStorage;
+    if (storage.getItem('user_id')) {
+        setUser(storage.getItem('user_name'), storage.getItem('user_image'));
+        return;
+    }
+    var endpointName = 'ユーザー取得API';
+    var getUser = Api.getUser();
+    getUser.done(function(data){
+        console.log(endpointName + '：' + getUser.status);
+        setUser(data.user_name, data.user_image);
+        storage.setItem('user_id', data.user_id);
+        storage.setItem('user_name', data.user_name);
+        storage.setItem('user_image', data.user_image);
+        displayAlert('ログインしました。');
+    }).fail(function(data, textStatus, errorThrown) {
+        displayAlert('借りるにはログインが必要です。');
+    });    
+}
+
+/**
+ * ユーザー情報を設定する
+ * @param {Object} user ユーザー情報
+ */
+function setUser(userName, userImage) {
+    var userElement = document.getElementById('user');
+    var userMenuElement = '<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="" alt="" >' + userName + '</a>'
+                        + '<span class="dropdown-menu" aria-labelledby="dropdownMenuLink">'
+                        + '<a class="dropdown-item" href="/users/edit">設定変更</a>'
+                        + '<a class="dropdown-item" href="/users/sign_out" onclick="logout();">ログアウト</a>'
+                        + '</span>';
+    //TODO スタイルを調整し適用
+    // var userElement = '<img src="' + userImage  + '" alt="" >' + userName;
+    userElement.innerHTML = userMenuElement;
 }
 
 /**
@@ -109,12 +159,16 @@ function createBooksElements(books) {
             var title               = book.title;
             var image               = imageBasePath + book.image;
             var status              = book.status;
-            var return_scheduled_on = (status !== 1)             ? ''                           :
-                                      (book.return_scheduled_on) ? book.return_scheduled_on     : '返却日未定';
-            var reading     = (status === 1)     ? 'reading active'     : 'reading';
-            var safekeeping = (status === 0)     ? 'safekeeping active' : 'safekeeping';
+            var return_scheduled_on = (status !== 1)             ? ''                       :
+                                      (book.return_scheduled_on) ? book.return_scheduled_on : '返却日未定';
+            var reading     = (status === 1) ? 'reading active'     : 'reading';
+            var safekeeping = (status === 0) ? 'safekeeping active' : 'safekeeping';
 
-            var datepickerElement = (status === 1) ? '<div class="set_datepicker_reading">' : '<div class="set_datepicker">';
+            var datepickerElement  = (status === 1) ? '<div class="set_datepicker_reading">' : '<div class="set_datepicker">';
+            var readingElement     = (sessionStorage.getItem('user_id')) ? '<div class="book_status ' + reading + '"><input type="button" name="book_reading" value="貸出中" onclick="openDatepicker(' + id + ');"></div>'
+                                                                         : '<div class="book_status ' + reading + ' logout"><span data-logout="ログインしてください" class="logout_text"><input type="button" name="book_reading" value="貸出中"></span></div>';
+            var safekeepingElement = (sessionStorage.getItem('user_id')) ? '<div class="book_status ' + safekeeping + '"><input type="button" name="book_safekeeping" value="保管中" onclick="updateBookSafekeeping(' + id + ');"></div>'
+                                                                         : '<div class="book_status ' + safekeeping + ' logout"><span data-logout="ログインしてください" class="logout_text"><input type="button" name="book_safekeeping" value="保管中"></span></div>'
             var bookItemElement = '<div id="' + id + '" class="book_item">'
                                 + '<form class="form_datepicker" name="update_return_date" action="">'
                                 + '<small class="return_date_title">返却予定日</small>'
@@ -124,9 +178,9 @@ function createBooksElements(books) {
                                 + '</form>' 
                                 + '<div class="book_image"><img src="' + image + '" alt=""></div>'
                                 + '<div class="book_detail"><div class="book_title">' + title + '</div>'
-                                + '<form name="update_status" action="">' 
-                                + '<div class="book_status ' + reading + '"><input type="button" name="book_reading" value="貸出中" onclick="openDatepicker(' + id + ');"></div>'
-                                + '<div class="book_status ' + safekeeping + '"><input type="button" name="book_safekeeping" value="保管中" onclick="updateBookSafekeeping(' + id + ');"></div>'
+                                + '<form name="update_status" action="">'
+                                + readingElement
+                                + safekeepingElement
                                 + '</form>'
                                 + '<form name="delete_book" action="">'
                                 + '<div class="book_delete">'
@@ -166,7 +220,7 @@ function updateBookReading(id, dateText) {
     var request = new Object;
     request.lending = {
         book_id            : id,
-        user_id            : 1,
+        user_id            : parseInt(sessionStorage.getItem('user_id')),
         return_scheduled_on: dateText
     };
     var updateBookReading = Api.updateBookReading(request);
@@ -188,7 +242,7 @@ function updateBookSafekeeping(id) {
     var request = new Object;
     request.lending = {
         book_id: id,
-        user_id: 1
+        user_id: parseInt(sessionStorage.getItem('user_id'))
     };
     var updateBookSafekeeping = Api.updateBookSafekeeping(request);
     var dateText = getNowYYYYMMDD();
@@ -219,8 +273,6 @@ function deleteBook(id) {
     var deleteBook = Api.deleteBook(request);
     deleteBook.done(function(data){
         console.log(endpointName + '：' + deleteBook.status);
-        // bookItem = document.getElementById(id);
-        // bookItem.parentNode.removeChild(bookItem);
         getBooks(null);
     }).fail(function(data, textStatus, errorThrown) {
         displayResponseError(endpointName, data, textStatus, errorThrown);
@@ -238,7 +290,7 @@ function updateReturnDate(id, dateText){
     var request = new Object;
     request.lending = {
         book_id            : id,
-        user_id            : 1,
+        user_id            : parseInt(sessionStorage.getItem('user_id')),
         return_scheduled_on: returnDate
     };
     var updateReturnDate = Api.updateReturnDate(request);
@@ -293,7 +345,8 @@ function getBookName(id) {
  */
 function createReadingSendText(id, statusText, date) {
     var bookName = getBookName(id);
-    return '【' + statusText + '】\n書籍　　　:' + bookName + '\n返却予定日:' + date;
+    var userName = sessionStorage.getItem('user_name');
+    return '【' + statusText + '】\n氏名　　　:' + userName + '\n書籍　　　:' + bookName + '\n返却予定日:' + date;
 }
 
 /**
@@ -303,5 +356,6 @@ function createReadingSendText(id, statusText, date) {
  */
 function createSafekeepingSendText(id, date) {
     var bookName = getBookName(id);
-    return '【返却】\n書籍　　　:' + bookName + '\n返却日　　:' + date;
+    var userName = sessionStorage.getItem('user_name');
+    return '【返却】\n氏名　　　:' + userName + '\n書籍　　　:' + bookName + '\n返却日　　:' + date;
 }
