@@ -11,6 +11,22 @@ var Api = (function() {
     }
 
     /**
+     * ユーザー取得API
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
+    function getUser(request) {
+        return $.ajax({
+            type    : 'GET',
+            url     : baseUrl + 'users/',
+            dataType: 'json',
+            data    : request,
+            async   : false,
+            timeout : 10000
+        });
+    }
+
+    /**
      * 本一覧取得API
      * @param  {Object} request リクエストパラメータ
      * @return {Object} レスポンスオブジェクト
@@ -22,21 +38,6 @@ var Api = (function() {
             dataType: 'json',
             data    : request,
             async   : false,
-            timeout : 10000
-        });
-    }
-
-    /**
-     * 本数取得API
-     * @param  {Object} request リクエストパラメータ
-     * @return {Object} レスポンスオブジェクト
-     */
-    function getBooksCount(request) {
-        return $.ajax({
-            type    : 'GET',
-            url     : baseUrl + 'books/count/',
-            dataType: 'json',
-            async   : true,
             timeout : 10000
         });
     }
@@ -65,7 +66,7 @@ var Api = (function() {
     function registerBook(request) {
         return $.ajax({
             type       : 'POST',
-            url        : baseUrl + 'book/',
+            url        : baseUrl + 'books/',
             dataType   : 'json',
             data       : request,
             async      : false,
@@ -99,8 +100,8 @@ var Api = (function() {
      */
     function updateBookReading(request) {
         return $.ajax({
-            type    : 'PUT',
-            url     : baseUrl + 'book/reading/',
+            type    : 'POST',
+            url     : baseUrl + 'books/' + request.lending.book_id + '/lendings/',
             dataType: 'json',
             data    : request,
             async   : true,
@@ -115,8 +116,8 @@ var Api = (function() {
      */
     function updateBookSafekeeping(request) {
         return $.ajax({
-            type    : 'PUT',
-            url     : baseUrl + 'book/safekeeping/',
+            type    : 'DELETE',
+            url     : baseUrl + 'lendings/' + request.lending.book_id,
             dataType: 'json',
             data    : request,
             async   : true,
@@ -131,8 +132,8 @@ var Api = (function() {
      */
     function updateReturnDate(request) {
         return $.ajax({
-            type    : 'PUT',
-            url     : baseUrl + 'book/return-date/',
+            type    : 'PATCH',
+            url     : baseUrl + 'lendings/' + request.lending.book_id,
             dataType: 'json',
             data    : request,
             async   : false,
@@ -164,7 +165,7 @@ var Api = (function() {
     function deleteBook(request) {
         return $.ajax({
             type    : 'DELETE',
-            url     : baseUrl + 'book/',
+            url     : baseUrl + 'books/' + request.book.id,
             dataType: 'json',
             data    : request,
             async   : true,
@@ -190,8 +191,8 @@ var Api = (function() {
     }    
 
     return {
+        getUser                 : getUser,
         getBooks                : getBooks,
-        getBooksCount           : getBooksCount,
         getBookDetail           : getBookDetail,
         registerBook            : registerBook,
         updateBook              : updateBook,

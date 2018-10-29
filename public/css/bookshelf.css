@@ -50,6 +50,11 @@ strong {
   margin-top: 10px;
 }
 
+/* ユーザーエリア */
+#user {
+  display: inline-block;
+}
+
 /* 書籍登録ボタン */
 header nav {
   float: right;
@@ -329,6 +334,33 @@ textarea {
 	display: inline-block
 }
 
+.logout {
+	display: inline-block;
+}
+.logout_text {
+	position: relative;
+	cursor: pointer;
+}
+.logout_text::after {
+	position: absolute;
+	transition: all 0.3s ease 0s;
+	opacity: 0;
+	/* hoverのスタート位置 */
+	top: 0px;
+	left: 0px;
+	display: block;
+	padding: 0.2em 0.5em;
+	content: attr(data-logout);
+	white-space: nowrap;
+	color: #ffffff;
+	border-radius: 6px;
+	background: #1b2538;
+}
+.logout_text:hover::after {
+  /* hover位置 */
+	top: 26px;
+	opacity: 1;
+}
 
 /* -----タブレット時----- */
 @media(min-width: 721px) and (max-width: 1100px){

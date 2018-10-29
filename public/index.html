@@ -20,6 +20,9 @@
           <a href="./index.html"><img src="./images/logo.png" alt="Bookshelf"></a>
         </div>
         <nav>
+          <div id="user" class="dropdown">
+            <a href="/users/sign_in">ログイン</a>
+          </div>
           <a href="./form.html"><img src="./images/icon_plus.png" alt="">書籍登録</a>
         </nav>
       </div>
@@ -29,12 +32,17 @@
       <h1 id="cover_title">ほんだな</h1>
       <form action="">
         <div class="book_status reading active">
-          <input type="button" name="only_reading" value="貸出中" onclick="getBooks(1, null);">
+          <input type="button" name="only_reading" value="貸出中" onclick="getBooks(1, null, null);">
           <div id= "books_reading" class="book_count"></div>
         </div>
         <div class="book_status safekeeping active">
-          <input type="button" name="only_safekeeping" value="保管中" onclick="getBooks(2, null);">
+          <input type="button" name="only_safekeeping" value="保管中" onclick="getBooks(0, null, null);">
           <div id= "books_safekeeping" class="book_count"></div>
+        </div>
+      </form>
+      <form name="search_book" action="" class="form_book">
+        <div class="book_title">
+          <input id="form_book_title" type="text" name="search_title" placeholder="書籍タイトルを入力" value="">
         </div>
       </form>
     </div>
