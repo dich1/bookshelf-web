@@ -21,11 +21,11 @@ function registerBook(button) {
         return;
     }
     var selectIndex = document.forms.register_book.book_status.selectedIndex;
-    var status = document.forms.register_book.book_status.options[selectIndex].value;;
+    var status = document.forms.register_book.book_status.options[selectIndex].value;
     var request = new FormData();
-    request.append('title', title);
-    request.append('image', imageFile, imageFile.name);
-    request.append('status', status);
+    request.append('book[title]', title);
+    request.append('book[image]', imageFile, imageFile.name);
+    request.append('book[genre_id]', 1);
 
     var registerBook = Api.registerBook(request);
     registerBook.done(function(data){

@@ -6,7 +6,11 @@ class Api::UsersController < ApplicationController
 
   # GET /api/users
   def index
-    @users = User.all
+    if get_user
+      render :json => get_user
+    else
+      render :json => {}, status: :unauthorized
+    end
   end
 
   # GET /api/users/:id
@@ -66,6 +70,9 @@ class Api::UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    def get_user
+      return { user_id: current_user.id, user_name: current_user.name, user_image: current_user.image} if user_signed_in?
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.fetch(:user, {})
