@@ -33,7 +33,6 @@ gem 'active_model_serializers'
 
 # Use all
 gem 'kaminari'
-gem 'carrierwave'
 gem 'fog-aws'
 gem 'poltergeist'
 gem 'devise'

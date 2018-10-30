@@ -22,16 +22,7 @@
       <div id="main">
         <form name="register_book" action="" class="form_book" enctype="multipart/form-data">
           <div class="book_title">
-            <input id="form_book_title" type="text" name="book_title" placeholder="書籍タイトルを入力" value="" required>
-          </div>
-          <div class="book_image">
-            <input id="form_book_image" type="file" name="book_image" accept="image/png,image/jpeg,image/gif">
-          </div>
-          <div class="book_status">
-            <select name="book_status">
-              <option value="0">貸出中</option>
-              <option value="1" selected>保管中</option>
-            </select>
+            <input id="form_book_title" type="text" name="book_title" placeholder="ISBNを入力" value="" required>
           </div>
           <div class="book_submit">
             <input type="button" name="submit_add_book" value="登録" onclick="registerBook(this);">

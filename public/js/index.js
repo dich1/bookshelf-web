@@ -151,13 +151,11 @@ function getBooks(status, page, keyword) {
  */
 function createBooksElements(books) {
     var bookListElement = '';
-    var environment = (location.hostname.match(/^bookshelf.tech$/)) ? 'production' : 'development';
-    var imageBasePath = '//s3-ap-northeast-1.amazonaws.com/bookshelf-image/uploads/' + environment + '/';
     if (books.length > 0) {
         books.forEach(function (book) {
             var id                  = book.id;
             var title               = book.title;
-            var image               = imageBasePath + book.image;
+            var image               = book.image;
             var status              = book.status;
             var return_scheduled_on = (status !== 1)             ? ''                       :
                                       (book.return_scheduled_on) ? book.return_scheduled_on : '返却日未定';
