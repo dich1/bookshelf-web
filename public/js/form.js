@@ -4,32 +4,35 @@
  */
 function registerBook(button) {
     var endpointName = '本登録API'
-    var title = document.forms.register_book.book_title.value;
-    if (title.length === 0) {
-        alert('タイトルを入力してください');
+    var isbn = document.forms.register_book.book_title.value;
+    if (isbn.length === 0) {
+        alert('ISBNを入力してください');
         return;
     }
-    if (document.forms.register_book.book_image.files.length === 0) {
-        alert('画像を添付してください');
-        return;
-    }
-    var imageFile = document.forms.register_book.book_image.files[0];
-    var extension = imageFile.name.split('.')[imageFile.name.split('.').length - 1];
-    var acceptExtensions = ['jpg', 'jpeg', 'gif', 'png'];
-    if (acceptExtensions.indexOf(extension) === -1) {
-        alert(acceptExtensions.join(', ') + 'の拡張子で添付してください');
-        return;
-    }
-    var selectIndex = document.forms.register_book.book_status.selectedIndex;
-    var status = document.forms.register_book.book_status.options[selectIndex].value;
-    var request = new FormData();
-    request.append('book[title]', title);
-    request.append('book[image]', imageFile, imageFile.name);
-    request.append('book[genre_id]', 1);
 
+    var title;
+    var image;
+    var searchISBN = Api.searchISBN(isbn);
+    searchISBN.done(function(data){
+        console.log(endpointName + '：' + searchISBN.status);
+        console.log(data);
+        title = data.items[0].volumeInfo.title;
+        image = data.items[0].volumeInfo.imageLinks.thumbnail;
+    }).fail(function(data, textStatus, errorThrown) {
+        displayResponseError(endpointName, data, textStatus, errorThrown);
+    });
+
+    var request = new Object;
+    request.book = {
+        title            : title,
+        image            : image
+    };
     var registerBook = Api.registerBook(request);
     registerBook.done(function(data){
         console.log(endpointName + '：' + registerBook.status);
+        console.log(data);
+        var title = data.items[0].volumeInfo.title;
+        var image = data.items[0].volumeInfo.imageLinks.thumbnail
         alert('本を登録しました。');
         location.href = './index.html' + '?' + (new Date()).getTime();
     }).fail(function(data, textStatus, errorThrown) {
