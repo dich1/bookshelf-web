@@ -4,40 +4,44 @@
  */
 function registerBook(button) {
     var endpointName = '本登録API'
-    var isbn = document.forms.register_book.book_title.value;
-    if (isbn.length === 0) {
-        alert('ISBNを入力してください');
-        return;
-    }
-
-    var title;
-    var image;
-    var searchISBN = Api.searchISBN(isbn);
-    searchISBN.done(function(data){
-        console.log(endpointName + '：' + searchISBN.status);
-        console.log(data);
-        title = data.items[0].volumeInfo.title;
-        image = data.items[0].volumeInfo.imageLinks.thumbnail;
-    }).fail(function(data, textStatus, errorThrown) {
-        displayResponseError(endpointName, data, textStatus, errorThrown);
-    });
-
     var request = new Object;
-    request.book = {
-        title            : title,
-        image            : image
-    };
+    request.book = searchISBN();
+
     var registerBook = Api.registerBook(request);
     registerBook.done(function(data){
         console.log(endpointName + '：' + registerBook.status);
         console.log(data);
-        var title = data.items[0].volumeInfo.title;
-        var image = data.items[0].volumeInfo.imageLinks.thumbnail
         alert('本を登録しました。');
         location.href = './index.html' + '?' + (new Date()).getTime();
     }).fail(function(data, textStatus, errorThrown) {
         displayResponseError(endpointName, data, textStatus, errorThrown);
     });
+}
+
+/**
+ * ISBN検索する
+ * @return {Object} タイトル、画像URL
+ */
+function searchISBN() {
+    var endpointName = 'ISBN検索API'
+    var title;
+    var image;
+    var searchNumber = document.forms.register_book.book_isbn.value;
+    var isbn = searchNumber.slice(0, 13);
+    var searchISBN = Api.searchISBN(isbn);
+    searchISBN.done(function(data){
+        console.log(endpointName + '：' + searchISBN.status);
+        console.log(data);
+        if (data.totalItems === 0) {
+            alert('書籍がみつかりませんでした。');
+            return;
+        }
+        title = data.items[0].volumeInfo.title;
+        image = data.items[0].volumeInfo.imageLinks.thumbnail;
+    }).fail(function(data, textStatus, errorThrown) {
+        displayResponseError(endpointName, data, textStatus, errorThrown);
+    });
+    return {title : title, image : image};
 }
 
 /**
