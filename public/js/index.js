@@ -195,7 +195,7 @@ function deleteBook(id) {
     };
     if (!confirm('削除してもよろしいですか ?')) {
         return;
-    };
+    }
     var deleteBook = Api.deleteBook(request);
     deleteBook.done(function(data){
         console.log(endpointName + '：' + deleteBook.status);
