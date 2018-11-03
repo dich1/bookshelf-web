@@ -12,7 +12,7 @@ function registerBook(button) {
 $(document).on('click', '.book_image', function(event){
     if (!confirm('登録しますか ?')) {
         return;
-    };
+    }
     var title = event.currentTarget.parentNode.textContent;
     var image = event.currentTarget.parentNode.childNodes[0].childNodes[0].src;
     var request = new Object;
