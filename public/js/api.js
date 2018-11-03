@@ -59,20 +59,33 @@ var Api = (function() {
     }
 
     /**
+     * 本検索API(Google)
+     * @param  {Object} request リクエストパラメータ
+     * @return {Object} レスポンスオブジェクト
+     */
+    function searchBook(request) {
+        return $.ajax({
+            type    : 'GET',
+            url     : 'https://www.googleapis.com/books/v1/volumes?q=' + request,
+            dataType: 'json',
+            async   : false,
+            timeout : 10000
+        });
+    }
+
+    /**
      * 本登録API
      * @param  {Object} request リクエストパラメータ
      * @return {Object} レスポンスオブジェクト
      */
     function registerBook(request) {
         return $.ajax({
-            type       : 'POST',
-            url        : baseUrl + 'books/',
-            dataType   : 'json',
-            data       : request,
-            async      : false,
-            timeout    : 10000,
-            processData: false,
-            contentType: false
+            type    : 'POST',
+            url     : baseUrl + 'books/',
+            dataType: 'json',
+            data    : request,
+            async   : true,
+            timeout : 10000
         });
     }
 
@@ -194,6 +207,7 @@ var Api = (function() {
         getUser                 : getUser,
         getBooks                : getBooks,
         getBookDetail           : getBookDetail,
+        searchBook              : searchBook,
         registerBook            : registerBook,
         updateBook              : updateBook,
         updateBookReading       : updateBookReading,

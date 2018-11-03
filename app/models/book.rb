@@ -5,7 +5,6 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :image, presence: true
   enum status: {safekeeping: 0, lending: 1}
-  mount_uploader :image, ImageUploader
   scope :per_newest, -> (number){page(number).per(PER).order("updated_at DESC")}
   scope :keyword, -> (keyword){ransack(title_cont: keyword).result}
   scope :lending_books, -> {where(id: Lending.select("book_id").lendings)}
