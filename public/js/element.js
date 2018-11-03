@@ -1,12 +1,12 @@
 /**
  * 本一覧要素を作成する
- * @param  {Object} books 本一覧
+ * @param  {Object} books 本一覧オブジェクト
  * @return {string} 本一覧HTML要素
  */
 function createBooksElements(books) {
     var bookListElement = '';
     if (books.length <= 0) {
-        return bookListElement = '<h1 id="no_books" >本ありません</h1>'
+        return '<h1 id="no_books" >本ありません</h1>'
     }
     books.forEach(function (book) {
         var id                  = book.id;
@@ -54,7 +54,7 @@ function createBooksElements(books) {
 function createUnsavedBooksElements(books) {
     var bookListElement = '';
     if (books.totalItems <= 0) {
-        return bookListElement = '<h1 id="no_books" >本ありません</h1>';
+        return '<h1 id="no_books" >本ありません</h1>';
     }
     books.items.forEach(function (book) {
         var title = book.volumeInfo.title;
