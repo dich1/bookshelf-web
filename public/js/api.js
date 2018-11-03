@@ -59,7 +59,7 @@ var Api = (function() {
     }
 
     /**
-     * ISBN検索API(Google)
+     * 本検索API(Google)
      * @param  {Object} request リクエストパラメータ
      * @return {Object} レスポンスオブジェクト
      */
