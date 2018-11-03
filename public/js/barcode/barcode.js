@@ -265,6 +265,7 @@ jQuery(function($) {
     return result.innerHTML = o.message;
   });
   return barcode.on("finished", function(e, o) {
+    // 読取と同時に登録処理をする
     document.getElementById('isbn_submit').click();
     return result.innerHTML += "<br />" + o.message;
   });
