@@ -21,22 +21,17 @@
     <div class="wrapper">
       <div id="main">
         <form name="register_book" action="" class="form_book" enctype="multipart/form-data">
-          <div class="book_title">
+          <div id="form_book" class="book_title">
             <input id="form_book_title" type="text" name="book_title" placeholder="書籍タイトルを入力" value="" required>
           </div>
-          <div class="book_image">
-            <input id="form_book_image" type="file" name="book_image" accept="image/png,image/jpeg,image/gif">
-          </div>
-          <div class="book_status">
-            <select name="book_status">
-              <option value="0">貸出中</option>
-              <option value="1" selected>保管中</option>
-            </select>
-          </div>
           <div class="book_submit">
-            <input type="button" name="submit_add_book" value="登録" onclick="registerBook(this);">
+            <input id="isbn_submit" type="hidden" name="submit_add_book" value="登録" onclick="registerBook(this);">
           </div>
         </form>
+        <div id="container" class="form_book"></div>
+        <div id="book_list" class="clearfix">
+            <!-- 登録された書籍の数だけ出力  -->
+        </div>
       </div>
     </div>
     <footer>
@@ -46,5 +41,8 @@
     <script type="text/javascript" src="./js/api.js"></script>
     <script type="text/javascript" src="./js/error.js"></script>
     <script type="text/javascript" src="./js/form.js" defer></script>
+    <script type="text/javascript" src="./js/search.js" defer></script>
+    <script type="text/javascript" src="./js/element.js" defer></script>
+    <script type="text/javascript" src="./js/barcode/barcode.js"></script>
   </body>
 </html>
