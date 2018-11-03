@@ -7,17 +7,17 @@
       canvas_height: 480
     };
     default_messages = {
-      unavailable: "This browser does not have some features required this page. Please try with another browser. このブラウザでは使えません。別のブラウザで試してください。",
-      videoButton: "Capture from camera in browser / ブラウザの中でカメラ画像を取得",
-      videoCloseButton: "Close Camera / カメラを閉じる",
-      decoding: "Decoding... / 認識中...",
-      decodingFailed: "Decoding failed. / 認識できませんでした。",
-      finished: "Finished. / 認識処理終了。",
-      finishedWithCamera: "Finished. Close camera or click image to decode again. / 認識処理終了。カメラを閉じるか画像をクリックして続けて認識させてください。",
+      unavailable: "このブラウザでは使えません。別のブラウザで試してください。",
+      videoButton: "ブラウザの中でカメラ画像を取得",
+      videoCloseButton: "カメラを閉じる",
+      decoding: "認識中...",
+      decodingFailed: "認識できませんでした。",
+      finished: "認識処理終了。",
+      finishedWithCamera: "認識処理終了。カメラを閉じるか画像をクリックして続けて認識させてください。",
       decoderPath: "./js/barcode/DecoderWorker.js",
-      scanIntro: "Show barcode on camera and click below. / カメラにバーコードをかざして下の画像をクリックしてください",
-      videoIntro: "Allow to access camera. / カメラへのアクセスを許可してください",
-      videoError: "Unable to get video stream! / カメラへのアクセスができませんでした。",
+      scanIntro: "カメラにバーコードをかざして下の画像をクリックしてください",
+      videoIntro: "カメラへのアクセスを許可してください",
+      videoError: "カメラへのアクセスができませんでした。",
       fileApiError: "Neither createObjectURL or FileReader are supported"
     };
     options = $.extend(defaults, config);
