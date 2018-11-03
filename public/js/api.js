@@ -63,10 +63,10 @@ var Api = (function() {
      * @param  {Object} request リクエストパラメータ
      * @return {Object} レスポンスオブジェクト
      */
-    function searchISBN(request) {
+    function searchBook(request) {
         return $.ajax({
             type    : 'GET',
-            url     : 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + request,
+            url     : 'https://www.googleapis.com/books/v1/volumes?q=' + request,
             dataType: 'json',
             async   : false,
             timeout : 10000
@@ -207,7 +207,7 @@ var Api = (function() {
         getUser                 : getUser,
         getBooks                : getBooks,
         getBookDetail           : getBookDetail,
-        searchISBN              : searchISBN,
+        searchBook              : searchBook,
         registerBook            : registerBook,
         updateBook              : updateBook,
         updateBookReading       : updateBookReading,
