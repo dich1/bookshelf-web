@@ -22,9 +22,8 @@ function setPagination(status, total, keyword) {
     });
     if (total > PER_PAGE_LIMIT) {
         $('#paging').show();
-    } else {
-        $('#paging').hide();
     }
+    $('#paging').hide();
 }
 
 /**
