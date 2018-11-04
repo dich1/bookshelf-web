@@ -6,7 +6,7 @@
 function createBooksElements(books) {
     var bookListElement = '';
     if (books.length <= 0) {
-        return '<h1 id="no_books" >本ありません</h1>'
+        return '<h1 id="no_books" >本ありません</h1>';
     }
     books.forEach(function (book) {
         var id                  = book.id;
