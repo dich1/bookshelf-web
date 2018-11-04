@@ -40,30 +40,6 @@ window.addEventListener('load', function() {
 });
 
 /**
- * ログイン
- * @param {Number} ユーザーID
- * @param {String} ユーザー名
- * @param {String} ユーザー画像
- */
-function login(userId, userName, userImage) {
-    setUser(userName, userImage);
-    var storage = sessionStorage;
-    storage.setItem('user_id', userId);
-    storage.setItem('user_name', userName);
-    storage.setItem('user_image', userImage);
-}
-
-/**
- * ログアウト
- */
-function logout() {
-    var storage = sessionStorage;
-    storage.removeItem('user_id');
-    storage.removeItem('user_name');
-    storage.removeItem('user_image');
-}
-
-/**
  * 本の数を設定する
  * @param {number} readings     読書中(貸出中)
  * @param {number} safekeepings 保管中
