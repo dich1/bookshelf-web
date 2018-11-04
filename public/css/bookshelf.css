@@ -67,11 +67,15 @@ header nav a {
   color: #8d3d15;
   font-size: 18px;
 }
+#facebook_login {
+  border-color: #4267B2 !important;
+}
 
 /* アイキャッチ */
 #cover {
   color: white;
   height: 300px;
+  width: 100%;
   background-image: url("../images/cover.jpg");
   display: flex;
   justify-content: center;
@@ -360,6 +364,10 @@ textarea {
   /* hover位置 */
 	top: 26px;
 	opacity: 1;
+}
+
+.login {
+  margin-top: 5px;
 }
 
 /* -----タブレット時----- */
