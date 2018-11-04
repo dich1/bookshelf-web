@@ -5,7 +5,7 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :image, presence: true
   enum status: {safekeeping: 0, lending: 1}
-  scope :per_newest, -> (number){page(number).per(PER).order("updated_at DESC")}
+  scope :per_newest, -> (number){select("books.id, books.title, books.image, lendings.return_scheduled_on, books.genre_id, books.created_at, books.updated_at").joins("LEFT OUTER JOIN lendings ON books.id = lendings.book_id AND lendings.returned_on IS NULL").page(number).per(PER).order("updated_at DESC")}
   scope :keyword, -> (keyword){ransack(title_cont: keyword).result}
   scope :lending_books, -> {where(id: Lending.select("book_id").lendings)}
   scope :safekeeping_books, -> {where.not(id: Lending.select("book_id").lendings)}
