@@ -80,7 +80,7 @@ function displayBooks(bookListElement) {
     bookList.textContent = null;
     console.log(bookList);
     bookList.insertAdjacentHTML('afterbegin', bookListElement);
-    if (location.pathname !== '/index.html') {
+    if (location.pathname === '/form.html') {
         return;
     }
     setDatepicker();
