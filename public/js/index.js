@@ -100,14 +100,16 @@ function getUser() {
  * @param {Object} user ユーザー情報
  */
 function setUser(userName, userImage) {
+    var nav = document.getElementsByClassName('logout')[0];
+    nav.setAttribute('class', 'login');
     var userElement = document.getElementById('user');
-    var userMenuElement = '<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="" alt="" >' + userName + '</a>'
+    var userMenuElement = '<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0px 8px; background-color: #fff0;">'
+                        + '<img src="' + userImage + '" alt="" >' + userName
+                        + '</a>'
                         + '<span class="dropdown-menu" aria-labelledby="dropdownMenuLink">'
                         + '<a class="dropdown-item" href="/users/edit">設定変更</a>'
                         + '<a class="dropdown-item" href="/users/sign_out" onclick="logout();">ログアウト</a>'
                         + '</span>';
-    //TODO スタイルを調整し適用
-    // var userElement = '<img src="' + userImage  + '" alt="" >' + userName;
     userElement.innerHTML = userMenuElement;
 }
 
