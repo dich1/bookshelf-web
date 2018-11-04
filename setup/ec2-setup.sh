@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "===== start ======"
+echo "===== ec2-setup start ======"
 sudo chmod 700 /etc/sudoers
 sudo sed -ie '93i deploy  ALL=NOPASSWD:   ALL' /etc/sudoers
 sudo chmod 440 /etc/sudoers
@@ -27,4 +27,4 @@ sudo docker volume create --name=public-data
 EOF
 
 sudo cp /home/ec2-user/.ssh/authorized_keys /home/deploy/.ssh/authorized_keys
-echo "===== finish ====="
+echo "===== ec2-setup finish ====="
