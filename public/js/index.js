@@ -40,6 +40,20 @@ window.addEventListener('load', function() {
 });
 
 /**
+ * ログイン
+ * @param {Number} ユーザーID
+ * @param {String} ユーザー名
+ * @param {String} ユーザー画像
+ */
+function login(userId, userName, userImage) {
+    setUser(userName, userImage);
+    var storage = sessionStorage;
+    storage.setItem('user_id', userId);
+    storage.setItem('user_name', userName);
+    storage.setItem('user_image', userImage);
+}
+
+/**
  * ログアウト
  */
 function logout() {
@@ -73,12 +87,10 @@ function getUser() {
     var getUser = Api.getUser();
     getUser.done(function(data){
         console.log(endpointName + '：' + getUser.status);
-        setUser(data.user_name, data.user_image);
-        storage.setItem('user_id', data.user_id);
-        storage.setItem('user_name', data.user_name);
-        storage.setItem('user_image', data.user_image);
+        login(data.user_id, data.user_name, data.user_image);
         displayAlert('ログインしました。');
     }).fail(function(data, textStatus, errorThrown) {
+        logout();
         displayAlert('借りるにはログインが必要です。');
     });    
 }
@@ -107,15 +119,15 @@ function setUser(userName, userImage) {
  */
 function getBooks(status, page, keyword) {
     var endpointName = '本一覧取得API';
-    var request = {};
+    var request = new Object;
     if (status !== null) {
-        request['status'] = status;
+        request.status = status;
     }
     if (page !== null) {
-        request['page']   = page;
+        request.page = page;
     }
     if (keyword !== null) {
-        request['q']   = keyword;
+        request.q = keyword;
     }
     var getBooks = Api.getBooks(request);
     var books;
