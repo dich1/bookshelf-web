@@ -22,9 +22,10 @@
       <div id="main">
         <form name="register_book" action="" class="form_book" enctype="multipart/form-data">
           <div id="form_book" class="book_title">
-            <input id="form_book_title" type="text" name="book_title" placeholder="書籍タイトルを入力" value="" required>
+            <input type="text" name="book_title" placeholder="書籍タイトルを入力" value="" required>
           </div>
           <div class="book_submit">
+            <input type="button" name="submit_search_book" value="検索" onclick="searchBook(document.register_book.book_title.value);">
             <input id="isbn_submit" type="hidden" name="submit_add_book" value="登録" onclick="registerBook(this);">
           </div>
         </form>
