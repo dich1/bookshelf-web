@@ -19,7 +19,7 @@ do
   fi
 done
 
-/usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
+nginx
 
 #for HOST in ${LETSENCRYPT_HOSTS}
 #do
