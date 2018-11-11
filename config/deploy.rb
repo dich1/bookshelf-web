@@ -118,6 +118,7 @@ namespace :deploy do
         # upload!('.env', "/var/www/bookshelf-web/current/.env")
 
         execute "cd /var/www/bookshelf-web/current && sed -ie 's/development/production/' .env"
+        execute 'cd /var/www/bookshelf-web/current && sed -ie "24,37s:^#::" containers/nginx/start.sh'
         execute "cd /var/www/bookshelf-web/current && docker-compose build"
         execute "cd /var/www/bookshelf-web/current && docker-compose up -d"
         execute "cd /var/www/bookshelf-web/current && docker-compose run --rm web rake db:create db:migrate RAILS_ENV=production"
