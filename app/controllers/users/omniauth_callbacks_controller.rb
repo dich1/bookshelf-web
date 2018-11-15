@@ -1,4 +1,8 @@
+# ユーザー認証コールバック関連コントローラークラス
+#
+# 返却値がある場合、JSON形式で返す
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  # facebookに
   def facebook
     callback_from :facebook
   end

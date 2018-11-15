@@ -1,3 +1,6 @@
+# メモ関連APIコントローラークラス
+#
+# 返却値がある場合、JSON形式で返す
 class Api::MemosController < ApplicationController
   before_action :set_api_memo, only: [:update, :destroy]
 

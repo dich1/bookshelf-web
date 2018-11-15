@@ -14,7 +14,7 @@ class Api::BooksController < ApplicationController
     render :json => @books, meta: @counts
   end
 
-  # 本登録API。同時に借りる場合、lendingsにユーザーIDと返却日を登録する
+  # 本登録API
   #
   # POST /api/books
   def create
@@ -38,7 +38,7 @@ class Api::BooksController < ApplicationController
     end
   end
 
-  # 本削除API。関連データは削除しない
+  # 本削除API
   #
   # DELETE /api/books/:id
   def destroy
@@ -52,6 +52,7 @@ class Api::BooksController < ApplicationController
       @book = Book.find(params[:id])
     end
 
+    # 本の数を設定
     def set_counts
       total = Book.all.size
       lendings = Lending.lendings.count

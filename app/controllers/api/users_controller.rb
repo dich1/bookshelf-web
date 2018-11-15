@@ -4,6 +4,7 @@
 class Api::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  # ユーザー情報取得API
   # GET /api/users
   def index
     if get_user
@@ -70,6 +71,7 @@ class Api::UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    # ログインユーザー情報取得
     def get_user
       return { user_id: current_user.id, user_name: current_user.name, user_image: current_user.image} if user_signed_in?
     end
