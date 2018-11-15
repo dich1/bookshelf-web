@@ -27,17 +27,11 @@ class Api::BooksController < ApplicationController
     end
   end
 
-  # 本更新API。返却情報を更新する場合、lendingsの返却日予定日または返却日を更新する
+  # 本更新API
   #
   # PATCH/PUT /api/books/:id
   def update
-     # TODO active_model_serializersでレスポンスを設定する
-    hash_book_params = book_params.to_h
-    # hash_book_params["lendings_attributes"][0]["id"] = Book.lending_lending_id(params[:id])
-    # TODO scopeにする
-    hash_book_params["lendings_attributes"][0]["id"] = Book.find(params[:id]).lendings.where.not(checkouted_on: nil, return_scheduled_on: nil).where(returned_on: nil).last.id
-    # TODO 保管中だった場合の処理を追加する
-    if @book.update(hash_book_params)
+    if @book.update(book_params)
       head :no_content
     else
       render json: @book.errors, status: :unprocessable_entity 
