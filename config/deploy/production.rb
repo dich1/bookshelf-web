@@ -51,7 +51,7 @@ server "52.192.137.28", user: "deploy", roles: %w{app db web}, my_property: :my_
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-server "54.64.252.121",
+server "52.192.137.28",
   user: "deploy",
   roles: %w{web app},
   ssh_options: {
