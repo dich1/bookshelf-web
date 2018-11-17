@@ -30,7 +30,7 @@
 /public/uploads
 
 # gem dotenv-rails
-#.env
+.env
 
 # mac finder
 .DS_Store
