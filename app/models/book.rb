@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
   has_many :genres
-  has_many :lendings
+  has_many :lendings, dependent: :destroy
   accepts_nested_attributes_for :lendings
   validates :title, presence: true
   validates :image, presence: true
