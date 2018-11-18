@@ -71,6 +71,12 @@ header nav a {
   border-color: #4267B2 !important;
 }
 
+/* アラートメッセージ */
+#alert {
+  position: absolute;
+  right: 0;
+}
+
 /* アイキャッチ */
 #cover {
   color: white;
