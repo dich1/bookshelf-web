@@ -15,8 +15,8 @@
 # gem 'pg'
 #
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
   host: <%= ENV.fetch('DB_HOST') { "localhost" } %>
   username: <%= ENV.fetch('DB_USERNAME') { "daichi" }  %>
   password:

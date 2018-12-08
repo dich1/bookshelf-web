@@ -1,13 +1,17 @@
 version: '3'
 services:
   db:
-    image: postgres
+    env_file: ./.env
+    image: mysql
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
     ports:
-      - "15432:5432"
+      - "3306:3306"
     environment:
-      - "POSTGRES_USER=postgres"
+      - "MYSQL_USER=${DB_USERNAME}"
+      - MYSQL_ALLOW_EMPTY_PASSWORD='yes'
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
   web:
     env_file: ./.env
     build: .
