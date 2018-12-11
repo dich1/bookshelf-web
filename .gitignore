@@ -41,11 +41,12 @@
 # Ignore redis binary dump (dump.rdb) files
 *.rdb
 
-# Ignore erd and classd
+# Ignore erd, classd, schema document
 /.yardoc
 /doc/*
 bookshelf-classd.dot
-bookshelf-classd.png
+schema.html
+schema.xml
 
 # Ignore schema
 /db/schema.rb

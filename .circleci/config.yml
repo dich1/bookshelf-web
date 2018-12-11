@@ -12,7 +12,9 @@ jobs:
           docker_layer_caching: false
       - run:
           name: システム依存関係のインストール
-          command: apk add --update --no-cache linux-headers docker git sudo openssh-client tar gzip build-base tzdata postgresql-dev alpine-sdk python python-dev 'py2-pip==10.0.1-r0' && pip install 'docker-compose==1.12.0'
+          command: |
+            apk add --update --no-cache linux-headers docker git sudo openssh-client tar gzip build-base tzdata mysql-dev alpine-sdk python python-dev 'py2-pip==10.0.1-r0'
+            pip install 'docker-compose==1.12.0'
       - checkout
       - restore_cache:
           name: Bundleキャッシュの復元
@@ -29,10 +31,23 @@ jobs:
             - /usr/local/bundle
       - run:
           name: テスト実行環境の作成
-          command: docker volume create --name=db-data && docker volume create --name=tmp-data && docker volume create --name=public-data && sed -ie 's/development/test/' .env && docker-compose up -d web && docker cp /var/www/bookshelf-web bookshelfweb_web_1:/
+          command: |
+            docker volume create --name=db-data
+            docker volume create --name=tmp-data
+            docker volume create --name=public-data
+            sed -ie 's/development/test/' .env
+            docker-compose up -d web
+            docker cp /var/www/bookshelf-web/my.cnf bookshelfweb_db_1:/etc/mysql/conf.d/my.cnf
+            mv /var/www/bookshelf-web/my.cnf /tmp
+            docker cp /var/www/bookshelf-web bookshelfweb_web_1:/
+            mv /tmp/my.cnf /var/www/bookshelf-web
       - run:
           name: Rspecの実行
-          command: docker-compose run --rm web rake db:create db:migrate RAILS_ENV=test && docker-compose run --rm web rspec spec/models/user_spec.rb && sed -ie 's/test/development/' .env
+          command: |
+            sleep 10s 
+            docker-compose run --rm web rake db:create db:migrate RAILS_ENV=test
+            docker-compose run --rm web rspec spec/models/user_spec.rb
+            sed -ie 's/test/development/' .env
       - add_ssh_keys:
           fingerprints:
             - "8c:1d:91:8e:6f:81:97:55:ef:ac:a8:02:26:77:45:dd"
@@ -46,8 +61,8 @@ jobs:
               ssh-add ${_k} || true
             done
             cat <<EOF >> ${HOME}/.ssh/config
-              Host github github.com
-                HostName github.com
+              Host bitbucket bitbucket.org
+                HostName bitbucket.org
                 IdentityFile ~/.ssh/id_rsa_8c1d918e6f819755efaca802267745dd
                 User git
             EOF      
