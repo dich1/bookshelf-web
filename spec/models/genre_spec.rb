@@ -22,6 +22,11 @@ RSpec.describe Genre, type: :model do
 
     end
 
+    it "is invalid without a name number" do
+      @genre.name = 1
+      expect(@genre.valid?).to eq(true)
+    end
+
     it "is invalid without a name ('')" do
       @genre.name = ''
       expect(@genre.invalid?).to eq(true) 
