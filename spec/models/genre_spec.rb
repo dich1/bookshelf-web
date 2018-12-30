@@ -12,7 +12,9 @@ RSpec.describe Genre, type: :model do
     end
 
     it "is uniqueness a name" do
-
+      Genre.create(name: 'TEST NAME')
+      @genre.name = 'TEST NAME'
+      expect(@genre.invalid?).to eq(true)
     end
 
     it "is has many books" do
