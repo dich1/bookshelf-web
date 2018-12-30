@@ -2,12 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Genre, type: :model do
   before do 
-    @genre = build(:genre)
+    @genre = Genre.new()
   end
 
   describe "Genre" do
     it "is valid with a name" do
-      expect(@genre.valid?).to eq(true) 
+      @genre.name = 'TEST NAME'
+      expect(@genre.valid?).to eq(true)
     end
 
     it "is uniqueness a name" do
