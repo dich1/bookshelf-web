@@ -18,11 +18,18 @@ RSpec.describe Genre, type: :model do
     end
 
     it "is has many books" do
-      # expect(@genre.books).to match_array books
+      books = []
+      1.upto(2){|number|
+        books << Book.create(title: 'title' + number.to_s, image: 'image' + number.to_s)
+      }
+      @genre.name = 'TEST NAME'
+      @genre.books = books
+      expect(@genre.books).to match_array books
     end
 
     it "is not has many books" do
-
+      @genre.name = 'TEST NAME'
+      expect(@genre.books.size).to eq(0)
     end
 
     it "is invalid without a name number" do
